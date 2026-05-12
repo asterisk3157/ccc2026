@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>クレーンゲーム — CCC2026 電子工作班</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<meta name="description" content="CCC2026 電子工作班の第1作品、デジタルクレーンゲームの概要・仕様・タスクボード。">
+<meta property="og:title" content="クレーンゲーム — CCC2026 電子工作班">
+<meta property="og:description" content="自作レバーでクレーンを操作。景品が取れたら本物のお菓子をプレゼント。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#EF8733">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="/">CCC2026</a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/cranegame" class="active">Crane</a>
+      <a href="/ringtoss">Ring Toss</a>
+      <a href="/racing">Racing</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-with-art">
+        <div>
+          <div class="label">PROJECT 01 — CRANE GAME</div>
+          <h1>デジタル<br>クレーンゲーム</h1>
+          <p class="tagline">
+            自作レバーでクレーンを操作。景品が取れたら本物のお菓子をプレゼント。<br>
+            子供が一番盛り上がる、王道のお祭りゲーム。
+          </p>
+          <div style="margin-top: 2rem;">
+            <span class="pill accent">IN PROGRESS</span>
+            <span class="pill">6月頭 完成目標</span>
+          </div>
+        </div>
+        <div>
+          <div class="crane-wrap">
+            <svg class="crane-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="40" width="240" height="230" rx="10" fill="white" stroke="#1a1a1a" stroke-width="4"/>
+              <rect x="30" y="40" width="240" height="32" rx="10" fill="#EF8733"/>
+              <rect x="30" y="60" width="240" height="14" fill="#EF8733"/>
+              <line x1="30" y1="225" x2="270" y2="225" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+              <line x1="40" y1="80" x2="260" y2="80" stroke="#1a1a1a" stroke-width="3"/>
+              <g class="claw-group">
+                <line x1="150" y1="80" x2="150" y2="150" stroke="#1a1a1a" stroke-width="2.5"/>
+                <rect x="135" y="148" width="30" height="14" rx="2" fill="#1a1a1a"/>
+                <path d="M 142 162 Q 132 188 124 200" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 158 162 Q 168 188 176 200" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 150 162 L 150 195" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+              </g>
+              <circle cx="80" cy="245" r="16" fill="#EF8733"/>
+              <circle cx="80" cy="245" r="10" fill="white" opacity="0.4"/>
+              <circle cx="118" cy="252" r="13" fill="#1a1a1a"/>
+              <circle cx="195" cy="250" r="15" fill="#EF8733" opacity="0.65"/>
+              <circle cx="232" cy="253" r="12" fill="#1a1a1a" opacity="0.8"/>
+              <line x1="155" y1="260" x2="155" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+              <circle cx="155" cy="240" r="9" fill="#EF8733"/>
+              <rect x="225" y="180" width="28" height="5" rx="1" fill="#1a1a1a"/>
+              <text x="218" y="205" font-size="12" font-weight="900" fill="#1a1a1a" font-family="sans-serif">¥100</text>
+            </svg>
+            <div class="badge-100">取れたらお菓子！</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div class="num">01 — RULES</div>
+        <h2>ゲームルール</h2>
+      </div>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="label">PRICE</div>
+          <h4>1プレイ ¥100</h4>
+          <div class="body">手動集金、係員がスタートボタンを押してゲーム開始。</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">DURATION</div>
+          <h4>30秒 × 3回</h4>
+          <div class="body">1プレイで 30秒チャレンジを3回挑戦できる。タイマー切れで強制投下。</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">SCORING</div>
+          <h4>取得個数で勝負</h4>
+          <div class="body">クリアしても残り時間内は続行可能。最大 3回 × 連続GET を狙える。</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">PRIZE</div>
+          <h4>本物のお菓子</h4>
+          <div class="body">画面でクリア表示 → 係員がお菓子を手渡し。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div class="num">02 — CONTROLLER</div>
+        <h2>コントローラー仕様</h2>
+        <div class="sub">HID キーボードのみ・Serial 通信なし</div>
+      </div>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="label">INPUT 01</div>
+          <h4>スティック</h4>
+          <div class="body">
+            <ul>
+              <li>8方向操作（離すと停止）</li>
+              <li>HID キーボード入力：W / A / S / D</li>
+              <li>マイクロスイッチ × 4 想定</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-card">
+          <div class="label">INPUT 02</div>
+          <h4>投下ボタン（光る）</h4>
+          <div class="body">
+            <ul>
+              <li>HID キーボード入力：Space</li>
+              <li>押下で投下、内部で 7セグ = 00 表示</li>
+              <li>内蔵 LED が点灯（プレイ中の合図）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-card">
+          <div class="label">INPUT 03</div>
+          <h4>スタートボタン</h4>
+          <div class="body">
+            <ul>
+              <li>HID キーボード入力：Enter</li>
+              <li>係員が押してゲーム開始</li>
+              <li>子供のフライング防止用</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-card">
+          <div class="label">DISPLAY</div>
+          <h4>7セグ × 2</h4>
+          <div class="body">
+            <ul>
+              <li>30秒カウントダウン</li>
+              <li>Arduino 内部で時間管理</li>
+              <li>投下 or 時間切れで 00 表示</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div class="num">03 — TECH</div>
+        <h2>使用技術</h2>
+      </div>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="label">HARDWARE</div>
+          <h4>Arduino Pro Micro</h4>
+          <div class="body">ATmega32U4 搭載で HID キーボード化が可能。Serial 通信を使わず、すべて HID 入力で完結。</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">SOFTWARE</div>
+          <h4>Three.js または Unity</h4>
+          <div class="body">PC で動くゲーム本体。Three.js なら Web 配信可能、Unity なら高品質な 3D 表現可能。</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">RANKING</div>
+          <h4>localStorage 保存</h4>
+          <div class="body">1プレイ（3回合計）の取得数で記録。名前なし、本日のトップ10をタイトル画面に常時表示。</div>
+        </div>
+        <div class="spec-card">
+          <div class="label">CASE</div>
+          <h4>卓上型 箱型筐体</h4>
+          <div class="body">ノートPCキーボード相当のサイズ。手前に筐体、奥にノートPC配置。USB 接続。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <div class="num">04 — TASKS</div>
+        <h2>作業ステップ</h2>
+        <div class="sub">レゴ説明書スタイル</div>
+      </div>
+
+      <div class="task-board">
+
+        <div class="task-step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>仕様確定</h4>
+            <div class="meta">
+              <span class="badge ink">メンター</span>
+              <span class="badge">完了</span>
+            </div>
+            <div class="body">ゲームルール、コントローラー構成、技術選定の方針を決める。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>筐体ラフ ＆ パーツデザイン</h4>
+            <div class="meta">
+              <span class="badge">フレームワーク班</span>
+              <span class="badge">5/19まで</span>
+            </div>
+            <div class="body">
+              手書きで以下をスケッチ：
+              <ul>
+                <li>筐体の見た目イメージ</li>
+                <li>投下ボタン・スタートボタン・スティックのデザイン</li>
+                <li>パーツの配置イメージ</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>Arduino 予習</h4>
+            <div class="meta">
+              <span class="badge">コントローラー班</span>
+              <span class="badge">5/19まで</span>
+            </div>
+            <div class="body">
+              <a href="https://wokwi.com" target="_blank" rel="noopener" style="color: var(--accent);">Wokwi</a>（Web シミュレータ）で予習：
+              <ul>
+                <li>L チカ（LED 点滅）</li>
+                <li>ボタンを押すと LED が光る</li>
+                <li>シリアル通信で "Hello" を送信</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h4>技術選定 ＆ 調査</h4>
+            <div class="meta">
+              <span class="badge">ソフトウェア・アプリ制作班</span>
+              <span class="badge">5/19まで</span>
+            </div>
+            <div class="body">Unity / Web (Three.js) のどちらでクレーンゲーム本体を作るかを決定。選んだ技術について調査する。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">05</div>
+          <div class="step-content">
+            <h4>パーツ選定 ＆ 購入</h4>
+            <div class="meta">
+              <span class="badge ink">メンター</span>
+              <span class="badge">5月中</span>
+            </div>
+            <div class="body">必要なパーツを選び、Amazon で購入してサークルに請求。Arduino Pro Micro × 2、スティック、ボタン、7セグ、LED など。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">06</div>
+          <div class="step-content">
+            <h4>1号機モック制作</h4>
+            <div class="meta">
+              <span class="badge ink">メンター</span>
+              <span class="badge">5月中</span>
+            </div>
+            <div class="body">Three.js でクレーンゲーム本体のモック ＋ Arduino コードを書いて、動く1号機を完成させる。これがチームの参考実装になる。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">07</div>
+          <div class="step-content">
+            <h4>ゲーム本体の実装</h4>
+            <div class="meta">
+              <span class="badge">ソフトウェア・アプリ制作班</span>
+              <span class="badge">5月末 〜 6月頭</span>
+            </div>
+            <div class="body">モックをベースに、本番用のゲーム本体を実装。UI・演出・ランキング機能まで含めて完成度を上げる。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">08</div>
+          <div class="step-content">
+            <h4>筐体の 3D モデル化 ＆ 製作</h4>
+            <div class="meta">
+              <span class="badge">フレームワーク班</span>
+              <span class="badge">5月末 〜 6月頭</span>
+            </div>
+            <div class="body">手書きラフを元に、Blender で正確な 3D モデルを作成。木材（ホームセンター）または 3D プリントで実物を製作。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">09</div>
+          <div class="step-content">
+            <h4>2号機の組み立て</h4>
+            <div class="meta">
+              <span class="badge">コントローラー班</span>
+              <span class="badge">opt-in</span>
+            </div>
+            <div class="body">1号機の回路を見ながら、2号機を半田付けで組み立てる。興味次第で参加（メンターがサポート）。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">10</div>
+          <div class="step-content">
+            <h4>統合テスト ＆ リハ</h4>
+            <div class="meta">
+              <span class="badge">全員</span>
+              <span class="badge">6月</span>
+            </div>
+            <div class="body">筐体に部品を組み込み、ゲーム本体と接続して通しでテスト。本番想定で動作確認・調整を行う。</div>
+          </div>
+        </div>
+
+        <div class="task-step">
+          <div class="step-num">11</div>
+          <div class="step-content">
+            <h4>本番出展</h4>
+            <div class="meta">
+              <span class="badge ink">全員</span>
+              <span class="badge">7月</span>
+            </div>
+            <div class="body">水辺で乾杯！利根運河で出展。1プレイ ¥100 で子供たちを楽しませて、収益を上げる。</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>CCC2026 ／ C4's Creation Challenge ／ 電子工作班</div>
+    <div>2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
