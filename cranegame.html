@@ -86,6 +86,7 @@
         <li><a href="#rules">ゲームルール</a></li>
         <li><a href="#controller">コントローラー</a></li>
         <li><a href="#tech">使用技術</a></li>
+        <li><a href="#considerations">検討中の項目</a></li>
         <li><a href="#steps">作業ステップ</a></li>
       </ol>
     </div>
@@ -146,7 +147,7 @@
         </tr>
         <tr>
           <th>ソフトウェア</th>
-          <td>Three.js または Unity<div class="note">PC で動くゲーム本体です。Three.js は Web で配信可能、Unity は 3D 表現の自由度が高いという特徴があります。担当者が選択します。</div></td>
+          <td>Unity 6<div class="note">PC で動くゲーム本体を実装します。動きをリアルに表現することを目的として、Unity 6 を採用しています。</div></td>
         </tr>
         <tr>
           <th>ランキング</th>
@@ -159,8 +160,23 @@
       </table>
     </section>
 
+    <section class="page-section" id="considerations">
+      <h2><span class="num">4.</span> 検討中の項目</h2>
+      <p>クレーンゲーム本体の実装にあたって、以下の点を検討中です。決まり次第、仕様を更新します。</p>
+      <table class="data">
+        <tr>
+          <th>アーム制御方式</th>
+          <td>MovePosition で実装中<div class="note">将来的にキネマティック Rigidbody と Joint を組み合わせた方式への移行を検討しています。アーム停止時のワイヤーや爪の揺れがより自然に表現できる一方、Joint の調整が必要になります。</div></td>
+        </tr>
+        <tr>
+          <th>3D モデル素材</th>
+          <td>ライセンス整理が必要<div class="note">現在は外部アセットを利用していますが、本番までに法律的にクリアな素材へ差し替える方針です。フレームワーク班に自作してもらう案も検討中です。</div></td>
+        </tr>
+      </table>
+    </section>
+
     <section class="page-section" id="steps">
-      <h2><span class="num">4.</span> 作業ステップ</h2>
+      <h2><span class="num">5.</span> 作業ステップ</h2>
       <p>仕様確定から本番出展までの作業を、おおまかな順序で並べています。詳細な担当別タスクは <a href="tasks.html">Tasks</a> ページにまとめています。</p>
 
       <ol class="task-list">
@@ -218,11 +234,10 @@
           <div class="step-num">04</div>
           <div class="step-content">
             <h4>技術選定・調査</h4>
-            <div class="body">Unity と Web（Three.js）のどちらでクレーンゲーム本体を作るかを決定します。選んだ技術について、できそうなことを調査します。</div>
+            <div class="body">ソフトウェア・アプリ制作班が Unity 6 を採用することに決定しました。動きをリアルに表現することを目的とした選定です。</div>
           </div>
           <div class="meta-col">
-            <span class="tag">ソフトウェア・アプリ制作班</span>
-            <span class="tag">5/19まで</span>
+            <span class="tag done">完了</span>
           </div>
         </li>
 
