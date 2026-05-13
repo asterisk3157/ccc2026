@@ -3,7 +3,7 @@
 C4's Creation Challenge 2026 のサークル内プロジェクト。
 電子工作班が、子供向けミニゲームを夏のお祭りに出展します。
 
-🔗 **公開URL**: TBD（デプロイ後に追記）
+🔗 **公開URL**: https://ccc2026.shironoir.com/
 
 ## 制作物
 
