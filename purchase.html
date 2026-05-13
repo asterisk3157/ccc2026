@@ -2,229 +2,229 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Purchase — CCC2026 電子工作班</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
-<meta name="description" content="CCC2026 電子工作班の購入予定リスト。クレーンゲーム制作に必要なパーツ・工具・素材。">
+<meta name="description" content="CCC2026 電子工作班の購入予定リスト。クレーンゲーム制作に必要なパーツ・工具・素材を整理しています。">
 <meta name="theme-color" content="#EF8733">
 </head>
 <body>
-<div class="top-bar"></div>
 
 <header class="site-header">
   <div class="container">
-    <a class="logo" href="index.html"><span class="mark"></span><span>CCC2026</span></a>
+    <a class="logo" href="index.html"><span class="mark"></span><span>CCC2026 電子工作班</span></a>
     <nav class="nav">
       <a href="index.html">Home</a>
       <a href="cranegame.html">Crane</a>
       <a href="tasks.html">Tasks</a>
       <a href="purchase.html" class="active">Purchase</a>
-      <a href="about.html">About</a>
     </nav>
   </div>
 </header>
 
+<div class="breadcrumb">
+  <div class="container">
+    <a href="index.html">Home</a>
+    <span class="sep">/</span>
+    <span class="current">Purchase</span>
+  </div>
+</div>
+
 <main>
-  <section class="hero" style="padding-bottom: 3vh;">
-    <div class="container">
-      <div class="issue">Purchase / 買うものリスト</div>
-      <h1>買うもの<span class="accent">。</span></h1>
+  <div class="container">
+
+    <div class="page-title">
+      <h1>購入予定リスト</h1>
       <p class="lead">
-        クレーンゲーム制作に必要なパーツ・工具・素材の一覧。<br>
-        電子部品は <span class="mark">メンターが Amazon でまとめて手配 → サークルへ請求</span> する流れ。
+        クレーンゲーム制作に必要なパーツ・工具・素材を整理しています。
+        電子部品はメンターが Amazon でまとめて手配し、サークルに費用請求します。
       </p>
-      <div style="margin-top: 1.6rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-        <span class="status-dot todo">TODO 未着手</span>
-        <span class="status-dot planned">PLANNED 購入予定</span>
-        <span class="status-dot done">DONE 購入済</span>
-        <span class="status-dot have">HAVE 手持ち</span>
-      </div>
     </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-
-      <!-- 電子工作 -->
-      <div class="purchase-section">
-        <h3><span class="num">01 — ELECTRONICS</span>電子工作</h3>
-        <table class="purchase-table">
-          <thead>
-            <tr>
-              <th>品目</th>
-              <th class="qty">数量</th>
-              <th class="status-cell">ステータス</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="item-name">Arduino Pro Micro<div class="body">ATmega32U4 搭載、HID キーボード化対応</div></td>
-              <td class="qty">2</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">マイクロスイッチ<div class="body">スティック用、4方向 × 2台分</div></td>
-              <td class="qty">8</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">光る押しボタン 30mm<div class="body">投下ボタン、LED 内蔵タイプ</div></td>
-              <td class="qty">2</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">押しボタン 16mm<div class="body">スタートボタン、係員用</div></td>
-              <td class="qty">2</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">TM1637 7セグ表示モジュール<div class="body">2桁分のカウントダウン表示、配線が楽な定番</div></td>
-              <td class="qty">2</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">USB ケーブル<div class="body">Pro Micro 対応（Micro-B または Type-C）</div></td>
-              <td class="qty">2</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">ジャンパーワイヤーセット<div class="body">オス-メス・オス-オスの混合</div></td>
-              <td class="qty">1</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">抵抗セット<div class="body">LED 保護用、各種値の詰め合わせ</div></td>
-              <td class="qty">1</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">ブレッドボード<div class="body">試作・動作確認用</div></td>
-              <td class="qty">2</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">ユニバーサル基板<div class="body">本番用、半田付けで実装</div></td>
-              <td class="qty">2</td>
-              <td><span class="status-dot planned">購入予定</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 工具 -->
-      <div class="purchase-section">
-        <h3><span class="num">02 — TOOLS</span>工具</h3>
-        <table class="purchase-table">
-          <thead>
-            <tr>
-              <th>品目</th>
-              <th class="qty">数量</th>
-              <th class="status-cell">ステータス</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="item-name">半田こて ＋ 半田<div class="body">メンター手持ちあり、追加で必要なら検討</div></td>
-              <td class="qty">1式</td>
-              <td><span class="status-dot have">手持ち</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">半田吸い取り線・吸い取り器<div class="body">ミスったときのリカバリー用</div></td>
-              <td class="qty">1</td>
-              <td><span class="status-dot todo">未着手</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">グルーガン ＋ スティック<div class="body">筐体内のパーツ固定用</div></td>
-              <td class="qty">1</td>
-              <td><span class="status-dot todo">未着手</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">ニッパー / ワイヤーストリッパー<div class="body">配線加工用</div></td>
-              <td class="qty">1</td>
-              <td><span class="status-dot todo">未着手</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">テスター（マルチメータ）<div class="body">通電確認用、あると便利</div></td>
-              <td class="qty">1</td>
-              <td><span class="status-dot todo">未着手</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 筐体・素材 -->
-      <div class="purchase-section">
-        <h3><span class="num">03 — CASE</span>筐体・素材</h3>
-        <table class="purchase-table">
-          <thead>
-            <tr>
-              <th>品目</th>
-              <th class="qty">数量</th>
-              <th class="status-cell">ステータス</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="item-name">木材<div class="body">ホームセンター調達、寸法は設計後に決定</div></td>
-              <td class="qty">—</td>
-              <td><span class="status-dot todo">設計後に検討</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">接着剤・ネジ<div class="body">筐体組み立て用</div></td>
-              <td class="qty">—</td>
-              <td><span class="status-dot todo">設計後に検討</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">塗料<div class="body">仕上げ用、任意</div></td>
-              <td class="qty">—</td>
-              <td><span class="status-dot todo">任意</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">3D プリント用 PLA フィラメント<div class="body">3D プリント方針なら追加で検討</div></td>
-              <td class="qty">—</td>
-              <td><span class="status-dot todo">方針次第</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 運営 -->
-      <div class="purchase-section">
-        <h3><span class="num">04 — OPERATION</span>当日運営</h3>
-        <p class="lead" style="margin-bottom: 1.5rem; font-size: 0.95rem;">
-          以下はサークル側で調達想定。電子工作班ではノータッチ。
-        </p>
-        <table class="purchase-table">
-          <thead>
-            <tr>
-              <th>品目</th>
-              <th class="qty">数量</th>
-              <th class="status-cell">ステータス</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="item-name">景品のお菓子<div class="body">クリア時に手渡し、サークル予算で調達</div></td>
-              <td class="qty">—</td>
-              <td><span class="status-dot todo">サークル側</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">集金箱<div class="body">100円の手動集金用</div></td>
-              <td class="qty">1</td>
-              <td><span class="status-dot todo">サークル側</span></td>
-            </tr>
-            <tr>
-              <td class="item-name">ノートPC<div class="body">ゲーム本体を動かす。台数はサークルと協議</div></td>
-              <td class="qty">1〜2</td>
-              <td><span class="status-dot todo">要協議</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
+    <div class="status-legend">
+      <span class="status-dot todo">TODO 未着手</span>
+      <span class="status-dot planned">PLANNED 購入予定</span>
+      <span class="status-dot done">DONE 購入済</span>
+      <span class="status-dot have">HAVE 手持ち</span>
     </div>
-  </section>
+
+    <!-- 電子工作 -->
+    <section class="purchase-section">
+      <h2><span class="num">1.</span> 電子工作（Electronics）</h2>
+      <table class="purchase-table">
+        <thead>
+          <tr>
+            <th>品目</th>
+            <th class="qty">数量</th>
+            <th class="status-cell">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item-name">Arduino Pro Micro<span class="note">ATmega32U4 搭載、HID キーボード化対応</span></td>
+            <td class="qty">2</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">マイクロスイッチ<span class="note">スティック用、4方向 × 2台分</span></td>
+            <td class="qty">8</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">光る押しボタン 30mm<span class="note">投下ボタン、LED 内蔵タイプ</span></td>
+            <td class="qty">2</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">押しボタン 16mm<span class="note">スタートボタン、係員用</span></td>
+            <td class="qty">2</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">TM1637 7セグ表示モジュール<span class="note">2桁分のカウントダウン表示用、配線が楽な定番品</span></td>
+            <td class="qty">2</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">USB ケーブル<span class="note">Pro Micro 対応（Micro-B または Type-C）</span></td>
+            <td class="qty">2</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">ジャンパーワイヤーセット<span class="note">オス-メス、オス-オスの混合タイプ</span></td>
+            <td class="qty">1</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">抵抗セット<span class="note">LED 保護用、各種値の詰め合わせ</span></td>
+            <td class="qty">1</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">ブレッドボード<span class="note">試作・動作確認用</span></td>
+            <td class="qty">2</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">ユニバーサル基板<span class="note">本番用、半田付けで実装</span></td>
+            <td class="qty">2</td>
+            <td><span class="status-dot planned">購入予定</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 工具 -->
+    <section class="purchase-section">
+      <h2><span class="num">2.</span> 工具（Tools）</h2>
+      <table class="purchase-table">
+        <thead>
+          <tr>
+            <th>品目</th>
+            <th class="qty">数量</th>
+            <th class="status-cell">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item-name">半田こて・半田<span class="note">メンターが手持ちのものを使用予定。追加で必要なら検討します</span></td>
+            <td class="qty">1式</td>
+            <td><span class="status-dot have">手持ち</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">半田吸い取り線・吸い取り器<span class="note">配線ミスのリカバリー用</span></td>
+            <td class="qty">1</td>
+            <td><span class="status-dot todo">未着手</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">グルーガン・スティック<span class="note">筐体内のパーツ固定用</span></td>
+            <td class="qty">1</td>
+            <td><span class="status-dot todo">未着手</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">ニッパー・ワイヤーストリッパー<span class="note">配線加工用</span></td>
+            <td class="qty">1</td>
+            <td><span class="status-dot todo">未着手</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">テスター（マルチメータ）<span class="note">通電確認用。あると便利です</span></td>
+            <td class="qty">1</td>
+            <td><span class="status-dot todo">未着手</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 筐体・素材 -->
+    <section class="purchase-section">
+      <h2><span class="num">3.</span> 筐体・素材（Case Materials）</h2>
+      <table class="purchase-table">
+        <thead>
+          <tr>
+            <th>品目</th>
+            <th class="qty">数量</th>
+            <th class="status-cell">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item-name">木材<span class="note">ホームセンターで調達予定。寸法は設計後に決定します</span></td>
+            <td class="qty">—</td>
+            <td><span class="status-dot todo">設計後に検討</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">接着剤・ネジ<span class="note">筐体組み立て用</span></td>
+            <td class="qty">—</td>
+            <td><span class="status-dot todo">設計後に検討</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">塗料<span class="note">仕上げ用、任意</span></td>
+            <td class="qty">—</td>
+            <td><span class="status-dot todo">任意</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">3D プリント用 PLA フィラメント<span class="note">3D プリントを使う方針の場合に追加で検討します</span></td>
+            <td class="qty">—</td>
+            <td><span class="status-dot todo">方針次第</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 運営 -->
+    <section class="purchase-section">
+      <h2><span class="num">4.</span> 当日運営（Operation）</h2>
+      <p>以下はサークル側で調達する予定の物品です。電子工作班ではノータッチですが、参考として記載しています。</p>
+      <table class="purchase-table">
+        <thead>
+          <tr>
+            <th>品目</th>
+            <th class="qty">数量</th>
+            <th class="status-cell">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item-name">景品のお菓子<span class="note">クリア時に手渡し。サークル予算で調達</span></td>
+            <td class="qty">—</td>
+            <td><span class="status-dot todo">サークル側</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">集金箱<span class="note">100円の手動集金用</span></td>
+            <td class="qty">1</td>
+            <td><span class="status-dot todo">サークル側</span></td>
+          </tr>
+          <tr>
+            <td class="item-name">ノートPC<span class="note">ゲーム本体を動かす機材。台数はサークルと協議します</span></td>
+            <td class="qty">1〜2</td>
+            <td><span class="status-dot todo">要協議</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
 </main>
 
 <footer class="site-footer">

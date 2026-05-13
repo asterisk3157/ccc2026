@@ -26,7 +26,6 @@ C4's Creation Challenge 2026 のサークル内プロジェクト。
 - `/racing` レースゲーム（予定）
 - `/tasks` 各班別タスクボード
 - `/purchase` 購入予定リスト
-- `/about` CCC2026 電子工作班 とは
 
 ## ライセンス
 
