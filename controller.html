@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>コントローラー組み立てガイド — CCC2026 電子工作班</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<meta name="description" content="クレーンゲーム コントローラーの配線図とプログラミングガイド。">
+<meta name="theme-color" content="#EF8733">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="index.html"><span class="mark"></span><span>CCC2026 電子工作班</span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="cranegame.html">Crane</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="controller.html" class="active">Controller</a>
+    </nav>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <div class="container">
+    <a href="index.html">Home</a>
+    <span class="sep">/</span>
+    <a href="cranegame.html">クレーンゲーム</a>
+    <span class="sep">/</span>
+    <span class="current">コントローラー組み立てガイド</span>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+
+    <div class="page-title">
+      <h1>コントローラー組み立てガイド</h1>
+      <p class="lead">
+        クレーンゲーム コントローラーの配線とプログラムをまとめています。
+        Arduino Pro Micro（ATmega32U4）を使い、ブレッドボード上で組み立てます。
+      </p>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">目次</div>
+      <ol>
+        <li><a href="#circuit">回路構成</a></li>
+        <li><a href="#program">プログラミング</a></li>
+      </ol>
+    </div>
+
+    <!-- ============ 回路構成 ============ -->
+    <section class="page-section" id="circuit">
+      <h2><span class="num">1.</span> 回路構成</h2>
+
+      <h3>配線表</h3>
+      <table class="data">
+        <thead>
+          <tr><th style="width:40%">接続先</th><th>Pro Micro ピン</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>7セグ TM1637 — CLK</td><td>D2</td></tr>
+          <tr><td>7セグ TM1637 — DIO</td><td>D3</td></tr>
+          <tr><td>投下ボタン</td><td>D4</td></tr>
+          <tr><td>スタートボタン</td><td>D5</td></tr>
+          <tr><td>LED（220Ω 経由）</td><td>D6</td></tr>
+          <tr><td>ジョイスティック VRX（X軸）</td><td>A0</td></tr>
+          <tr><td>ジョイスティック VRY（Y軸）</td><td>A1</td></tr>
+          <tr><td>電源 ＋（7セグ・ジョイスティック）</td><td>VCC</td></tr>
+          <tr><td>GND（7セグ・ジョイスティック・ボタン・LED）</td><td>GND</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Pro Micro ピン配置（使用ピンを赤で表示）</h3>
+      <div class="svg-box">
+        <svg viewBox="0 0 480 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pro Micro ピン配置図">
+          <!-- 基板 -->
+          <rect x="170" y="70" width="140" height="420" rx="10" fill="#14466e"/>
+          <text x="240" y="475" font-size="13" fill="#9ec5e8" text-anchor="middle" font-family="sans-serif" font-style="italic">Pro Micro</text>
+          <!-- USB-C -->
+          <rect x="205" y="48" width="70" height="30" rx="6" fill="#b8bcc2"/>
+          <rect x="213" y="54" width="54" height="18" rx="4" fill="#7e848c"/>
+          <!-- チップ -->
+          <rect x="212" y="250" width="56" height="56" rx="4" fill="#222"/>
+
+          <!-- ===== 左列ピン ===== -->
+          <!-- 各ピン: 円 + ピン名(基板内) -->
+          <!-- TXO -->
+          <circle cx="170" cy="110" r="7" fill="#d9a441"/>
+          <text x="184" y="114" font-size="11" fill="#cfe2f3" font-family="sans-serif">TXO</text>
+          <!-- RXI -->
+          <circle cx="170" cy="142" r="7" fill="#d9a441"/>
+          <text x="184" y="146" font-size="11" fill="#cfe2f3" font-family="sans-serif">RXI</text>
+          <!-- GND -->
+          <circle cx="170" cy="174" r="7" fill="#d9a441"/>
+          <text x="184" y="178" font-size="11" fill="#cfe2f3" font-family="sans-serif">GND</text>
+          <!-- GND -->
+          <circle cx="170" cy="206" r="7" fill="#d9a441"/>
+          <text x="184" y="210" font-size="11" fill="#cfe2f3" font-family="sans-serif">GND</text>
+          <!-- 2 (USED) -->
+          <circle cx="170" cy="238" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="186" y="242" font-size="11" fill="#fff" font-family="sans-serif" font-weight="bold">2</text>
+          <text x="160" y="242" font-size="11" fill="#c0392b" text-anchor="end" font-family="sans-serif" font-weight="bold">7セグ CLK</text>
+          <!-- 3 (USED) -->
+          <circle cx="170" cy="270" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="186" y="274" font-size="11" fill="#fff" font-family="sans-serif" font-weight="bold">3</text>
+          <text x="160" y="274" font-size="11" fill="#c0392b" text-anchor="end" font-family="sans-serif" font-weight="bold">7セグ DIO</text>
+          <!-- 4 (USED) -->
+          <circle cx="170" cy="302" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="186" y="306" font-size="11" fill="#fff" font-family="sans-serif" font-weight="bold">4</text>
+          <text x="160" y="306" font-size="11" fill="#c0392b" text-anchor="end" font-family="sans-serif" font-weight="bold">投下ボタン</text>
+          <!-- 5 (USED) -->
+          <circle cx="170" cy="334" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="186" y="338" font-size="11" fill="#fff" font-family="sans-serif" font-weight="bold">5</text>
+          <text x="160" y="338" font-size="11" fill="#c0392b" text-anchor="end" font-family="sans-serif" font-weight="bold">スタートボタン</text>
+          <!-- 6 (USED) -->
+          <circle cx="170" cy="366" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="186" y="370" font-size="11" fill="#fff" font-family="sans-serif" font-weight="bold">6</text>
+          <text x="160" y="370" font-size="11" fill="#c0392b" text-anchor="end" font-family="sans-serif" font-weight="bold">LED (220Ω)</text>
+          <!-- 7 -->
+          <circle cx="170" cy="398" r="7" fill="#d9a441"/>
+          <text x="184" y="402" font-size="11" fill="#cfe2f3" font-family="sans-serif">7</text>
+          <!-- 8 -->
+          <circle cx="170" cy="430" r="7" fill="#d9a441"/>
+          <text x="184" y="434" font-size="11" fill="#cfe2f3" font-family="sans-serif">8</text>
+          <!-- 9 -->
+          <circle cx="170" cy="462" r="7" fill="#d9a441"/>
+          <text x="184" y="466" font-size="11" fill="#cfe2f3" font-family="sans-serif">9</text>
+
+          <!-- ===== 右列ピン ===== -->
+          <!-- RAW -->
+          <circle cx="310" cy="110" r="7" fill="#d9a441"/>
+          <text x="296" y="114" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">RAW</text>
+          <!-- GND (USED) -->
+          <circle cx="310" cy="142" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="294" y="146" font-size="11" fill="#fff" text-anchor="end" font-family="sans-serif" font-weight="bold">GND</text>
+          <text x="320" y="146" font-size="11" fill="#c0392b" font-family="sans-serif" font-weight="bold">ブレッドボード −</text>
+          <!-- RST -->
+          <circle cx="310" cy="174" r="7" fill="#d9a441"/>
+          <text x="296" y="178" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">RST</text>
+          <!-- VCC (USED) -->
+          <circle cx="310" cy="206" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="294" y="210" font-size="11" fill="#fff" text-anchor="end" font-family="sans-serif" font-weight="bold">VCC</text>
+          <text x="320" y="210" font-size="11" fill="#c0392b" font-family="sans-serif" font-weight="bold">ブレッドボード ＋</text>
+          <!-- A3 -->
+          <circle cx="310" cy="238" r="7" fill="#d9a441"/>
+          <text x="296" y="242" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">A3</text>
+          <!-- A2 -->
+          <circle cx="310" cy="270" r="7" fill="#d9a441"/>
+          <text x="296" y="274" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">A2</text>
+          <!-- A1 (USED) -->
+          <circle cx="310" cy="302" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="294" y="306" font-size="11" fill="#fff" text-anchor="end" font-family="sans-serif" font-weight="bold">A1</text>
+          <text x="320" y="306" font-size="11" fill="#c0392b" font-family="sans-serif" font-weight="bold">ジョイ VRY (Y)</text>
+          <!-- A0 (USED) -->
+          <circle cx="310" cy="334" r="8" fill="#e23b3b" stroke="#fff" stroke-width="1.5"/>
+          <text x="294" y="338" font-size="11" fill="#fff" text-anchor="end" font-family="sans-serif" font-weight="bold">A0</text>
+          <text x="320" y="338" font-size="11" fill="#c0392b" font-family="sans-serif" font-weight="bold">ジョイ VRX (X)</text>
+          <!-- 15 -->
+          <circle cx="310" cy="366" r="7" fill="#d9a441"/>
+          <text x="296" y="370" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">15</text>
+          <!-- 14 -->
+          <circle cx="310" cy="398" r="7" fill="#d9a441"/>
+          <text x="296" y="402" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">14</text>
+          <!-- 16 -->
+          <circle cx="310" cy="430" r="7" fill="#d9a441"/>
+          <text x="296" y="434" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">16</text>
+          <!-- 10 -->
+          <circle cx="310" cy="462" r="7" fill="#d9a441"/>
+          <text x="296" y="466" font-size="11" fill="#cfe2f3" text-anchor="end" font-family="sans-serif">10</text>
+        </svg>
+      </div>
+
+      <h3>ブレッドボード回路図</h3>
+      <div class="svg-box">
+        <svg viewBox="0 0 760 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ブレッドボード回路図">
+          <!-- ブレッドボード本体 -->
+          <rect x="20" y="40" width="720" height="450" rx="8" fill="#f2ead5" stroke="#d8cdac" stroke-width="2"/>
+
+          <!-- 上 電源レール -->
+          <line x1="55" y1="62" x2="705" y2="62" stroke="#e23b3b" stroke-width="3"/>
+          <text x="46" y="66" font-size="13" fill="#e23b3b" text-anchor="end" font-weight="bold" font-family="sans-serif">＋</text>
+          <line x1="55" y1="78" x2="705" y2="78" stroke="#2b6cb0" stroke-width="3"/>
+          <text x="46" y="82" font-size="13" fill="#2b6cb0" text-anchor="end" font-weight="bold" font-family="sans-serif">−</text>
+
+          <!-- 下 電源レール -->
+          <line x1="55" y1="452" x2="705" y2="452" stroke="#2b6cb0" stroke-width="3"/>
+          <text x="46" y="456" font-size="13" fill="#2b6cb0" text-anchor="end" font-weight="bold" font-family="sans-serif">−</text>
+          <line x1="55" y1="468" x2="705" y2="468" stroke="#e23b3b" stroke-width="3"/>
+          <text x="46" y="472" font-size="13" fill="#e23b3b" text-anchor="end" font-weight="bold" font-family="sans-serif">＋</text>
+
+          <!-- レール橋渡し（上下の電源をつなぐ） -->
+          <line x1="688" y1="62" x2="688" y2="468" stroke="#e23b3b" stroke-width="2" stroke-dasharray="3 3"/>
+          <line x1="700" y1="78" x2="700" y2="452" stroke="#2b6cb0" stroke-width="2" stroke-dasharray="3 3"/>
+
+          <!-- 中央チャンネル（溝） -->
+          <rect x="55" y="256" width="650" height="16" fill="#e6dcc0"/>
+
+          <!-- ===== 配線（背面） ===== -->
+          <!-- Pro Micro VCC(上ピン x=276) → 上＋レール -->
+          <line x1="276" y1="222" x2="276" y2="62" stroke="#e23b3b" stroke-width="2.5"/>
+          <!-- Pro Micro GND(上ピン x=228) → 上−レール -->
+          <line x1="228" y1="222" x2="228" y2="78" stroke="#2b6cb0" stroke-width="2.5"/>
+
+          <!-- ジョイスティック（左端子）→ Pro Micro / レール -->
+          <!-- GND (538,150) → 上−レール -->
+          <line x1="538" y1="150" x2="500" y2="150" stroke="#2b6cb0" stroke-width="2"/>
+          <line x1="500" y1="150" x2="500" y2="78" stroke="#2b6cb0" stroke-width="2"/>
+          <!-- VCC (538,172) → 上＋レール -->
+          <line x1="538" y1="172" x2="515" y2="172" stroke="#e23b3b" stroke-width="2"/>
+          <line x1="515" y1="172" x2="515" y2="62" stroke="#e23b3b" stroke-width="2"/>
+          <!-- VRX (538,194) → A0 (372,222)：横→縦のシンプルL字 -->
+          <line x1="538" y1="194" x2="372" y2="194" stroke="#EF8733" stroke-width="2"/>
+          <line x1="372" y1="194" x2="372" y2="222" stroke="#EF8733" stroke-width="2"/>
+          <!-- VRY (538,216) → A1 (348,222)：横→縦のシンプルL字 -->
+          <line x1="538" y1="216" x2="348" y2="216" stroke="#EF8733" stroke-width="2"/>
+          <line x1="348" y1="216" x2="348" y2="222" stroke="#EF8733" stroke-width="2"/>
+
+          <!-- 7セグ（右端子）→ Pro Micro / 下レール -->
+          <!-- CLK (250,360) → D2 (300,316) -->
+          <line x1="250" y1="360" x2="300" y2="360" stroke="#EF8733" stroke-width="2"/>
+          <line x1="300" y1="360" x2="300" y2="316" stroke="#EF8733" stroke-width="2"/>
+          <!-- DIO (250,378) → D3 (324,316) -->
+          <line x1="250" y1="378" x2="324" y2="378" stroke="#EF8733" stroke-width="2"/>
+          <line x1="324" y1="378" x2="324" y2="316" stroke="#EF8733" stroke-width="2"/>
+          <!-- VCC (250,396) → 下＋レール（右に出してから下へ） -->
+          <line x1="250" y1="396" x2="272" y2="396" stroke="#e23b3b" stroke-width="2"/>
+          <line x1="272" y1="396" x2="272" y2="468" stroke="#e23b3b" stroke-width="2"/>
+          <!-- GND (250,414) → 下−レール（右に出してから下へ） -->
+          <line x1="250" y1="414" x2="290" y2="414" stroke="#2b6cb0" stroke-width="2"/>
+          <line x1="290" y1="414" x2="290" y2="452" stroke="#2b6cb0" stroke-width="2"/>
+
+          <!-- 投下ボタン（右2端子）：信号→D4(348,316)、GND→下−レール -->
+          <line x1="410" y1="388" x2="410" y2="356" stroke="#EF8733" stroke-width="2"/>
+          <line x1="410" y1="356" x2="348" y2="356" stroke="#EF8733" stroke-width="2"/>
+          <line x1="348" y1="356" x2="348" y2="316" stroke="#EF8733" stroke-width="2"/>
+          <line x1="410" y1="414" x2="410" y2="452" stroke="#2b6cb0" stroke-width="2"/>
+
+          <!-- スタートボタン（右2端子）：信号→D5(372,316)、GND→下−レール -->
+          <line x1="525" y1="388" x2="525" y2="348" stroke="#EF8733" stroke-width="2"/>
+          <line x1="525" y1="348" x2="372" y2="348" stroke="#EF8733" stroke-width="2"/>
+          <line x1="372" y1="348" x2="372" y2="316" stroke="#EF8733" stroke-width="2"/>
+          <line x1="525" y1="414" x2="525" y2="452" stroke="#2b6cb0" stroke-width="2"/>
+
+          <!-- LED + 抵抗：アノード→D6(396,316)、カソード→抵抗→下−レール -->
+          <line x1="620" y1="358" x2="620" y2="340" stroke="#EF8733" stroke-width="2"/>
+          <line x1="620" y1="340" x2="396" y2="340" stroke="#EF8733" stroke-width="2"/>
+          <line x1="396" y1="340" x2="396" y2="316" stroke="#EF8733" stroke-width="2"/>
+          <line x1="620" y1="384" x2="620" y2="398" stroke="#2b6cb0" stroke-width="2"/>
+          <line x1="620" y1="424" x2="620" y2="452" stroke="#2b6cb0" stroke-width="2"/>
+
+          <!-- ===== パーツ ===== -->
+          <!-- ジョイスティック（上・左に4端子） -->
+          <rect x="540" y="110" width="160" height="120" rx="5" fill="#8b1a1a"/>
+          <circle cx="625" cy="170" r="30" fill="#333"/>
+          <text x="625" y="220" font-size="11" fill="#fff" text-anchor="middle" font-family="sans-serif">ジョイスティック</text>
+          <g font-size="8" font-family="sans-serif" fill="#fff">
+            <circle cx="540" cy="150" r="3.5" fill="#d9a441"/><text x="548" y="153">GND</text>
+            <circle cx="540" cy="172" r="3.5" fill="#d9a441"/><text x="548" y="175">VCC</text>
+            <circle cx="540" cy="194" r="3.5" fill="#d9a441"/><text x="548" y="197">VRX</text>
+            <circle cx="540" cy="216" r="3.5" fill="#d9a441"/><text x="548" y="219">VRY</text>
+          </g>
+
+          <!-- 7セグ（下左・右に4端子） -->
+          <rect x="100" y="345" width="150" height="85" rx="5" fill="#1a1a1a"/>
+          <text x="165" y="392" font-size="12" fill="#EF8733" text-anchor="middle" font-weight="bold" font-family="sans-serif">7セグ</text>
+          <text x="165" y="408" font-size="11" fill="#EF8733" text-anchor="middle" font-family="sans-serif">TM1637</text>
+          <g font-size="8" font-family="sans-serif" fill="#9aa" text-anchor="end">
+            <circle cx="250" cy="360" r="3.5" fill="#d9a441"/><text x="244" y="363">CLK</text>
+            <circle cx="250" cy="378" r="3.5" fill="#d9a441"/><text x="244" y="381">DIO</text>
+            <circle cx="250" cy="396" r="3.5" fill="#d9a441"/><text x="244" y="399">VCC</text>
+            <circle cx="250" cy="414" r="3.5" fill="#d9a441"/><text x="244" y="417">GND</text>
+          </g>
+
+          <!-- 投下ボタン（右2端子） -->
+          <rect x="350" y="375" width="60" height="60" rx="5" fill="#2d7d46"/>
+          <circle cx="380" cy="405" r="13" fill="#1f5b32"/>
+          <circle cx="410" cy="388" r="3.5" fill="#d9a441"/>
+          <circle cx="410" cy="414" r="3.5" fill="#d9a441"/>
+          <text x="380" y="484" font-size="10" fill="#2d7d46" text-anchor="middle" font-family="sans-serif">投下 → D4</text>
+
+          <!-- スタートボタン（右2端子） -->
+          <rect x="465" y="375" width="60" height="60" rx="5" fill="#2d7d46"/>
+          <circle cx="495" cy="405" r="13" fill="#1f5b32"/>
+          <circle cx="525" cy="388" r="3.5" fill="#d9a441"/>
+          <circle cx="525" cy="414" r="3.5" fill="#d9a441"/>
+          <text x="495" y="484" font-size="10" fill="#2d7d46" text-anchor="middle" font-family="sans-serif">スタート → D5</text>
+
+          <!-- LED + 抵抗（下右・概略） -->
+          <circle cx="620" cy="371" r="13" fill="#ff6b6b"/>
+          <text x="620" y="346" font-size="10" fill="#c0392b" text-anchor="middle" font-family="sans-serif">LED → D6</text>
+          <text x="600" y="362" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-family="sans-serif">＋</text>
+          <text x="600" y="390" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-family="sans-serif">−</text>
+          <rect x="608" y="398" width="24" height="26" rx="2" fill="#caa472"/>
+          <text x="655" y="415" font-size="9" fill="#555" text-anchor="middle" font-family="sans-serif">220Ω以上</text>
+
+          <!-- Pro Micro（横向き・USB左・中央の溝をまたぐ） -->
+          <rect x="160" y="222" width="300" height="94" rx="6" fill="#14466e"/>
+          <rect x="128" y="248" width="34" height="42" rx="5" fill="#b8bcc2"/>
+          <text x="310" y="274" font-size="13" fill="#9ec5e8" text-anchor="middle" font-style="italic" font-family="sans-serif">Pro Micro</text>
+
+          <!-- 上ピン列 -->
+          <g font-size="8" font-family="sans-serif" text-anchor="middle">
+            <circle cx="180" cy="222" r="4" fill="#d9a441"/><text x="180" y="216" fill="#555">RAW</text>
+            <circle cx="228" cy="222" r="5" fill="#e23b3b"/><text x="228" y="216" fill="#c0392b" font-weight="bold">GND</text>
+            <circle cx="252" cy="222" r="4" fill="#d9a441"/><text x="252" y="216" fill="#555">RST</text>
+            <circle cx="276" cy="222" r="5" fill="#e23b3b"/><text x="276" y="216" fill="#c0392b" font-weight="bold">VCC</text>
+            <circle cx="300" cy="222" r="4" fill="#d9a441"/><text x="300" y="216" fill="#555">A3</text>
+            <circle cx="324" cy="222" r="4" fill="#d9a441"/><text x="324" y="216" fill="#555">A2</text>
+            <circle cx="348" cy="222" r="5" fill="#e23b3b"/><text x="348" y="216" fill="#c0392b" font-weight="bold">A1</text>
+            <circle cx="372" cy="222" r="5" fill="#e23b3b"/><text x="372" y="216" fill="#c0392b" font-weight="bold">A0</text>
+            <circle cx="396" cy="222" r="4" fill="#d9a441"/><text x="396" y="216" fill="#555">15</text>
+            <circle cx="420" cy="222" r="4" fill="#d9a441"/><text x="420" y="216" fill="#555">14</text>
+            <circle cx="444" cy="222" r="4" fill="#d9a441"/><text x="444" y="216" fill="#555">16</text>
+          </g>
+
+          <!-- 下ピン列 -->
+          <g font-size="8" font-family="sans-serif" text-anchor="middle">
+            <circle cx="180" cy="316" r="4" fill="#d9a441"/><text x="180" y="330" fill="#555">TXO</text>
+            <circle cx="204" cy="316" r="4" fill="#d9a441"/><text x="204" y="330" fill="#555">RXI</text>
+            <circle cx="228" cy="316" r="4" fill="#d9a441"/><text x="228" y="330" fill="#555">GND</text>
+            <circle cx="252" cy="316" r="4" fill="#d9a441"/><text x="252" y="330" fill="#555">GND</text>
+            <circle cx="300" cy="316" r="5" fill="#e23b3b"/><text x="300" y="330" fill="#c0392b" font-weight="bold">2</text>
+            <circle cx="324" cy="316" r="5" fill="#e23b3b"/><text x="324" y="330" fill="#c0392b" font-weight="bold">3</text>
+            <circle cx="348" cy="316" r="5" fill="#e23b3b"/><text x="348" y="330" fill="#c0392b" font-weight="bold">4</text>
+            <circle cx="372" cy="316" r="5" fill="#e23b3b"/><text x="372" y="330" fill="#c0392b" font-weight="bold">5</text>
+            <circle cx="396" cy="316" r="5" fill="#e23b3b"/><text x="396" y="330" fill="#c0392b" font-weight="bold">6</text>
+            <circle cx="420" cy="316" r="4" fill="#d9a441"/><text x="420" y="330" fill="#555">7</text>
+            <circle cx="444" cy="316" r="4" fill="#d9a441"/><text x="444" y="330" fill="#555">8</text>
+          </g>
+
+          <!-- 凡例（下部・干渉しない位置） -->
+          <line x1="240" y1="535" x2="270" y2="535" stroke="#e23b3b" stroke-width="3"/>
+          <text x="276" y="539" font-size="11" fill="#555" font-family="sans-serif">VCC（＋）</text>
+          <line x1="360" y1="535" x2="390" y2="535" stroke="#2b6cb0" stroke-width="3"/>
+          <text x="396" y="539" font-size="11" fill="#555" font-family="sans-serif">GND（−）</text>
+          <line x1="480" y1="535" x2="510" y2="535" stroke="#EF8733" stroke-width="3"/>
+          <text x="516" y="539" font-size="11" fill="#555" font-family="sans-serif">信号</text>
+        </svg>
+      </div>
+
+      <div class="callout">
+        <strong>メモ</strong>
+        <ul>
+          <li><strong>各パーツの端子の並び順（CLK / DIO / VCC / GND など）は、製品によって異なる場合があります。必ず実物に印刷された文字を見て繋いでください。</strong>この図の並び順はあくまで一例です。</li>
+          <li>今回はブレッドボード上での再現でOKです。本番の筐体では、各ボタン・スティックの設置位置が離れるため、配線ケーブルが長くなります。</li>
+          <li>VCC と GND はブレッドボードの電源レール（＋／−）に繋ぎ、そこから 7セグとジョイスティックに分配します。</li>
+          <li>ボタンは INPUT_PULLUP 方式のため、片側を信号ピン、反対側を GND に繋ぎます（外付け抵抗は不要）。</li>
+          <li>LED には抵抗を必ず挟んでください。220Ω が目安ですが、手持ちがなければ 220Ω 以上でもOKです（明るさが少し落ちる程度）。アノード＝長い足が D6 側、カソード＝短い足が GND 側。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ プログラミング ============ -->
+    <section class="page-section" id="program">
+      <h2><span class="num">2.</span> プログラミング</h2>
+
+      <p>
+        以下が現在のプロトタイプコードです（Wokwi で動作確認済み）。
+        GitHub にも置いてあります：
+        <a href="https://github.com/asterisk3157/ccc2026/blob/main/prototypes/cranegame-controller.ino" target="_blank" rel="noopener">cranegame-controller.ino</a>
+      </p>
+
+      <pre class="code"><code>#include &lt;TM1637Display.h&gt;
+
+// ===== ピン定義 =====
+#define CLK 2          // 7セグ TM1637 CLK
+#define DIO 3          // 7セグ TM1637 DIO
+
+#define BTN_DROP  4    // 投下ボタン
+#define BTN_START 5    // スタートボタン
+#define LED_DROP  6    // 投下ボタン照明用LED（220Ω 経由）
+
+#define JOY_X A0       // ジョイスティック VRX (X軸)
+#define JOY_Y A1       // ジョイスティック VRY (Y軸)
+
+#define THRESHOLD_LOW  300
+#define THRESHOLD_HIGH 700
+
+TM1637Display display(CLK, DIO);
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(BTN_DROP, INPUT_PULLUP);
+  pinMode(BTN_START, INPUT_PULLUP);
+  pinMode(LED_DROP, OUTPUT);
+  display.setBrightness(7);
+  display.showNumberDec(0);
+  digitalWrite(LED_DROP, LOW);
+  Serial.println("Ready");
+}
+
+void loop() {
+  // 投下ボタン
+  if (digitalRead(BTN_DROP) == LOW) {
+    Serial.println("DROP pressed");
+    display.showNumberDec(0);
+    digitalWrite(LED_DROP, HIGH);
+    delay(250);
+    digitalWrite(LED_DROP, LOW);
+  }
+  // スタートボタン
+  if (digitalRead(BTN_START) == LOW) {
+    Serial.println("START pressed");
+    display.showNumberDec(30);
+    delay(200);
+  }
+  // ジョイスティック（物理向きに合わせて反転済み）
+  int x = analogRead(JOY_X);
+  int y = analogRead(JOY_Y);
+  String dir = "";
+  if (y &gt; THRESHOLD_HIGH) dir += "UP ";
+  if (y &lt; THRESHOLD_LOW)  dir += "DOWN ";
+  if (x &gt; THRESHOLD_HIGH) dir += "LEFT ";
+  if (x &lt; THRESHOLD_LOW)  dir += "RIGHT ";
+  if (dir.length() &gt; 0) {
+    Serial.print("Joy: "); Serial.println(dir);
+  }
+  delay(100);
+}</code></pre>
+
+      <h3>これを元に、実際のゲーム向けに改造してください</h3>
+      <p>下記のポイントを実装すると、本番のクレーンゲームとして動くようになります。</p>
+      <ul class="mod-list">
+        <li><strong>HID キーボード化</strong>：<code>#include &lt;Keyboard.h&gt;</code> を追加し、<code>Serial.println(...)</code> を実際のキー送信に置き換える
+          <ul>
+            <li>投下ボタン → <code>Keyboard.press(' ')</code>（Space）</li>
+            <li>スタートボタン → <code>Keyboard.press(KEY_RETURN)</code>（Enter）</li>
+            <li>ジョイスティック → <code>Keyboard.press('w' / 'a' / 's' / 'd')</code></li>
+          </ul>
+        </li>
+        <li><strong>押している間だけ入力</strong>：ジョイスティックは倒している間 <code>press</code>、戻したら <code>release</code> する</li>
+        <li><strong>カウントダウン処理</strong>：スタート押下で 30 → 0 を 1秒ごとに減らす（<code>delay</code> ではなく <code>millis()</code> ベースが望ましい）</li>
+        <li><strong>3回繰り返し</strong>：1回（30秒）終わったら次のスタート待ち、3回終わったら待機状態に戻す</li>
+        <li><strong>タイマー切れで強制投下</strong>：30秒経過時に自動で投下（Space 相当）を送る</li>
+        <li><strong>LED 制御</strong>：ゲーム中は点灯、投下後に消灯（将来的には投下後3秒点滅 → 消灯）</li>
+        <li><strong>チャタリング対策の見直し</strong>：<code>delay()</code> での簡易対策を、状態管理（前回値との比較）に置き換える</li>
+      </ul>
+
+      <div class="callout">
+        <strong>このあとの流れ</strong>
+        <p>メンター側で簡単なデモサイトを用意します。コントローラーを PC に繋いで、そのデモサイトでクレーンが操作できる・投下できることを確認してもらう、というゴールです。</p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="credits">CCC2026 ／ C4's Creation Challenge ／ 電子工作班</div>
+    <div>2026</div>
+  </div>
+</footer>
+
+</body>
+</html>

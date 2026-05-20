@@ -859,6 +859,72 @@ table.data td ul li {
   color: var(--ink-soft);
 }
 
+/* ============== Controller guide page ============== */
+.svg-box {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0 1.5rem;
+  text-align: center;
+}
+
+.svg-box svg {
+  max-width: 100%;
+  height: auto;
+}
+
+pre.code {
+  background: #1e2530;
+  color: #e6e6e6;
+  padding: 1.2rem 1.4rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+pre.code code {
+  font-family: "SF Mono", Menlo, Consolas, "Courier New", monospace;
+  white-space: pre;
+}
+
+.callout {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1rem 1.4rem;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.callout strong { color: var(--accent-deep); }
+.callout ul { margin: 0.5rem 0 0; padding-left: 1.3em; }
+.callout ul li { margin-bottom: 0.3rem; }
+.callout p { margin: 0.4rem 0 0; }
+
+.mod-list {
+  margin: 1rem 0;
+  padding-left: 1.3em;
+  line-height: 1.8;
+}
+
+.mod-list li { margin-bottom: 0.5rem; }
+.mod-list ul { margin: 0.3rem 0; }
+
+code {
+  background: var(--bg-section);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem;
+  font-family: "SF Mono", Menlo, Consolas, "Courier New", monospace;
+  font-size: 0.85em;
+}
+
+pre.code code { background: none; border: none; padding: 0; font-size: inherit; }
+
 /* ============== Responsive base ============== */
 @media (max-width: 720px) {
   body { font-size: 15px; }
@@ -867,4 +933,5 @@ table.data td ul li {
   .page-title h1 { font-size: 1.55rem; }
   .page-section > h2 { font-size: 1.2rem; }
   .page-title { padding: 1.8rem 0 1.2rem; }
+  pre.code { font-size: 0.74rem; padding: 1rem; }
 }
