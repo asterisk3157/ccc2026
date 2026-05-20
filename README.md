@@ -25,7 +25,6 @@ C4's Creation Challenge 2026 のサークル内プロジェクト。
 - `/ringtoss` バーチャル輪投げ（予定）
 - `/racing` レースゲーム（予定）
 - `/tasks` 各班別タスクボード
-- `/purchase` 購入予定リスト
 
 ## ライセンス
 

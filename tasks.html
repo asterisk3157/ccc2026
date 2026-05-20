@@ -6,7 +6,7 @@
 <title>Tasks — CCC2026 電子工作班</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
-<meta name="description" content="CCC2026 電子工作班の各班別タスクボード。役割ごとに、いま手元にあるタスクをまとめています。">
+<meta name="description" content="CCC2026 電子工作班の各班別タスクボード。役割ごとに、いま何をやるかをまとめています。">
 <meta name="theme-color" content="#EF8733">
 </head>
 <body>
@@ -18,7 +18,6 @@
       <a href="index.html">Home</a>
       <a href="cranegame.html">Crane</a>
       <a href="tasks.html" class="active">Tasks</a>
-      <a href="purchase.html">Purchase</a>
     </nav>
   </div>
 </header>
@@ -37,8 +36,8 @@
     <div class="page-title">
       <h1>各班のタスク</h1>
       <p class="lead">
-        班ごとに、現在手元にあるタスクと 5/19 までの宿題をまとめています。
-        クレーンゲーム完成（2026年6月頭）に向けて、それぞれの動きが見えるようにしています。
+        班ごとに、現在のタスクと進捗をまとめています。
+        次回の全体MTGは 2026年5月26日（火）です。クレーンゲーム完成（6月頭）に向けて進めています。
       </p>
     </div>
 
@@ -57,7 +56,7 @@
           <div class="step-num">01</div>
           <div class="step-content">
             <h4>環境整備（Discord・ドキュメントサイト）</h4>
-            <div class="body">Discord チャンネルを整え（全体・各班・雑談）、ドキュメントサイトを立ち上げて公開します。</div>
+            <div class="body">Discord チャンネルを整え、ドキュメントサイトを立ち上げて公開しました。</div>
           </div>
           <div class="meta-col"><span class="tag done">完了</span></div>
         </li>
@@ -66,77 +65,54 @@
           <div class="step-num">02</div>
           <div class="step-content">
             <h4>各班と個別MTG</h4>
-            <div class="body">Discord 通話で 1on1 形式で行います。各班に、何を作るか・役割・5/19 までの宿題を共有します。</div>
+            <div class="body">各班と 1on1 を実施し、何を作るか・役割・宿題を共有しました。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag accent">進行中</span>
-            <span class="tag">5/19まで</span>
-          </div>
+          <div class="meta-col"><span class="tag done">完了</span></div>
         </li>
 
         <li>
           <div class="step-num">03</div>
           <div class="step-content">
             <h4>学習教材の準備</h4>
-            <div class="body">
-              <ul>
-                <li>Blender 軽い導入用の教材メモを用意します</li>
-                <li>Wokwi 宿題用のリンク集（コントローラー班向け）を整備します</li>
-              </ul>
-            </div>
+            <div class="body">Blender 軽い導入の説明、Wokwi の予習用リンクなどを用意しました。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag accent">進行中</span>
-            <span class="tag">5/19まで</span>
-          </div>
+          <div class="meta-col"><span class="tag done">完了</span></div>
         </li>
 
         <li>
           <div class="step-num">04</div>
           <div class="step-content">
-            <h4>パーツ選定・Amazon 購入</h4>
-            <div class="body">必要なパーツを選定し、Amazon で発注してサークルに費用請求します。詳細な購入リストは <a href="purchase.html">Purchase</a> に整理しています。</div>
+            <h4>パーツ選定・購入・配布</h4>
+            <div class="body">必要なパーツを Amazon で購入し、コントローラー班に渡しました。費用はサークルに請求します。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5月中</span>
-          </div>
+          <div class="meta-col"><span class="tag done">完了</span></div>
         </li>
 
         <li>
           <div class="step-num">05</div>
           <div class="step-content">
-            <h4>Three.js モック制作</h4>
-            <div class="body">クレーンゲーム本体のモックを Three.js で実装します。ソフトウェア・アプリ制作班が後で乗っかれる土台になる想定です。</div>
+            <h4>Arduino コードの作成・共有</h4>
+            <div class="body">Wokwi でプロトタイプ（ボタン・ジョイスティック・7セグ・LED）を作成しました。コードを GitHub に上げて、コントローラー班が実機で確認できるようにします。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5月末</span>
-          </div>
+          <div class="meta-col"><span class="tag accent">進行中</span></div>
         </li>
 
         <li>
           <div class="step-num">06</div>
           <div class="step-content">
-            <h4>Arduino コード作成</h4>
-            <div class="body">Pro Micro 用のコードを作成します。HID キーボード入力、7セグカウントダウン、投下ボタンの LED 制御を、すべて内部処理で完結させます。</div>
+            <h4>ゲーム本体のモック制作</h4>
+            <div class="body">クレーンゲーム本体のモックを用意し、ソフトウェア・アプリ制作班の参考実装にします。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5月末</span>
-          </div>
+          <div class="meta-col"><span class="tag">未着手</span><span class="tag">5月末</span></div>
         </li>
 
         <li>
           <div class="step-num">07</div>
           <div class="step-content">
-            <h4>1号機の組み立て・配線</h4>
-            <div class="body">パーツが揃い次第、1号機を完成させます。コントローラー班に紹介する参考実装となります。</div>
+            <h4>実機実装のサポート</h4>
+            <div class="body">コントローラー班が組み立てた実機の動作確認を一緒に行い、つまずいた箇所をサポートします。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5月末〜6月頭</span>
-          </div>
+          <div class="meta-col"><span class="tag">未着手</span><span class="tag">5月末〜6月頭</span></div>
         </li>
 
       </ol>
@@ -150,18 +126,15 @@
           <div class="step-num">01</div>
           <div class="step-content">
             <h4>個別MTG（Blender 軽い導入を受講）</h4>
-            <div class="body">メンターから Blender の基本操作、モデリングの流れ、書き出しまでをひと通り共有してもらいます。</div>
+            <div class="body">メンターから Blender の基本操作、モデリングの流れ、書き出しまでを共有してもらいました。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5/19まで</span>
-          </div>
+          <div class="meta-col"><span class="tag done">完了</span></div>
         </li>
 
         <li>
           <div class="step-num">02</div>
           <div class="step-content">
-            <h4>筐体ラフを描く（手書き）</h4>
+            <h4>筐体のラフを描く（手書き）</h4>
             <div class="body">
               筐体の見た目とパーツ配置を、紙にラフで描きます。
               <ul>
@@ -173,7 +146,7 @@
           </div>
           <div class="meta-col">
             <span class="tag">未着手</span>
-            <span class="tag">5/19までに持ち寄り</span>
+            <span class="tag">5/26までに持ち寄り</span>
           </div>
         </li>
 
@@ -181,11 +154,11 @@
           <div class="step-num">03</div>
           <div class="step-content">
             <h4>ボタン・スティックのデザイン（手書き）</h4>
-            <div class="body">投下ボタン、スタートボタン、スティック（つまみ部分）のデザインをラフでスケッチします。</div>
+            <div class="body">投下ボタン、スタートボタン、スティック（つまみ部分）のデザインをラフでスケッチします。タクトスイッチ用の 3D プリントカバーの設計もここに含みます。</div>
           </div>
           <div class="meta-col">
             <span class="tag">未着手</span>
-            <span class="tag">5/19までに持ち寄り</span>
+            <span class="tag">5/26までに持ち寄り</span>
           </div>
         </li>
 
@@ -195,9 +168,7 @@
             <h4>筐体の 3D モデル化（Blender）</h4>
             <div class="body">手書きラフをもとに、寸法を正確にした 3D モデルを Blender で作成します。後工程の 3D プリントや木工指示書のもとデータになります。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">5月末〜6月頭</span>
-          </div>
+          <div class="meta-col"><span class="tag">5月末〜6月頭</span></div>
         </li>
 
         <li>
@@ -206,9 +177,7 @@
             <h4>筐体の製作（木材または 3D プリント）</h4>
             <div class="body">ホームセンターで木材を購入して組むか、3D プリントで出力するかを、設計内容に応じて判断します。内部にはパーツ収納と配線スペースを確保します。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">6月頭</span>
-          </div>
+          <div class="meta-col"><span class="tag">6月頭</span></div>
         </li>
 
       </ol>
@@ -222,53 +191,36 @@
           <div class="step-num">01</div>
           <div class="step-content">
             <h4>個別MTG（何を作るか・Arduino 紹介）</h4>
-            <div class="body">メンターと Discord 通話で 1on1 を行います。プロジェクト全体、Arduino でできること、今後の流れを共有してもらいます。</div>
+            <div class="body">メンターと対面で 1on1 を行い、プロジェクト全体・Arduino でできること・今後の流れを共有してもらいました。クレーンゲーム用のパーツも受け取りました。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5/19まで</span>
-          </div>
+          <div class="meta-col"><span class="tag done">完了</span></div>
         </li>
 
         <li>
           <div class="step-num">02</div>
           <div class="step-content">
-            <h4>Wokwi で Arduino 予習</h4>
-            <div class="body">
-              <a href="https://wokwi.com" target="_blank" rel="noopener">Wokwi</a>（ブラウザで Arduino を動かせるシミュレータ）で、以下の3つを動かしてみます。
-              <ul>
-                <li>L チカ（LED 点滅）</li>
-                <li>ボタン入力で LED を光らせる</li>
-                <li>シリアル通信で "Hello" を PC に送る</li>
-              </ul>
-            </div>
+            <h4>自宅で実機を組み立て</h4>
+            <div class="body">受け取ったパーツ（Arduino Pro Micro、ジョイスティック、ボタン、7セグなど）を、手持ちの工具で組み立てます。配線の参考は、メンターが作った Wokwi プロトタイプを使います。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5/19まで</span>
-          </div>
+          <div class="meta-col"><span class="tag accent">進行中</span></div>
         </li>
 
         <li>
           <div class="step-num">03</div>
           <div class="step-content">
-            <h4>1号機の回路・コード理解</h4>
-            <div class="body">メンターが作った 1号機を見ながら、回路図とコードの読み方を学習します。</div>
+            <h4>コードを書き込んで実機で動作確認</h4>
+            <div class="body">メンターが GitHub に上げたコードを Pro Micro に書き込み、ボタン・ジョイスティック・7セグ・LED が想定通り動くかを確認します。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">5/19以降</span>
-          </div>
+          <div class="meta-col"><span class="tag">これから</span></div>
         </li>
 
         <li>
           <div class="step-num">04</div>
           <div class="step-content">
-            <h4>2号機の半田付け（希望制）</h4>
-            <div class="body">1号機をベースに、2号機を半田付けで組み立てます。本人が興味を持てば参加、興味がなければメンターが担当します。</div>
+            <h4>本番に向けた調整</h4>
+            <div class="body">HID キーボード化、ゲームロジックに沿った動作（カウントダウン、3回繰り返し、LED 制御）を、メンターと一緒に仕上げていきます。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">6月頭・希望制</span>
-          </div>
+          <div class="meta-col"><span class="tag">6月頭</span></div>
         </li>
 
       </ol>
@@ -284,9 +236,7 @@
             <h4>個別MTG（作りたいアプリの相談）</h4>
             <div class="body">メンターと相談して方針を決めました。動きをリアルに表現するため、Unity 6 を採用することにしています。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag done">完了</span>
-          </div>
+          <div class="meta-col"><span class="tag done">完了</span></div>
         </li>
 
         <li>
@@ -295,9 +245,7 @@
             <h4>選んだ技術の調査</h4>
             <div class="body">Unity 6 で開発に着手しています。現在はアーム制御方式（MovePosition と キネマティック + Joint）の選択肢を比較しながら実装中です。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag accent">進行中</span>
-          </div>
+          <div class="meta-col"><span class="tag accent">進行中</span></div>
         </li>
 
         <li>
@@ -306,9 +254,7 @@
             <h4>ゲーム本体の実装</h4>
             <div class="body">メンター提供のモックを土台に、本番用のクレーンゲームを実装します。WASD で 8方向移動、Space で投下、Enter でスタートというシンプルな入力で動かします。</div>
           </div>
-          <div class="meta-col">
-            <span class="tag">5月末〜6月頭</span>
-          </div>
+          <div class="meta-col"><span class="tag">5月末〜6月頭</span></div>
         </li>
 
         <li>
@@ -325,9 +271,7 @@
               </ul>
             </div>
           </div>
-          <div class="meta-col">
-            <span class="tag">6月頭</span>
-          </div>
+          <div class="meta-col"><span class="tag">6月頭</span></div>
         </li>
 
       </ol>
