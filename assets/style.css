@@ -544,59 +544,125 @@ table.data td ul li {
   background: var(--bg-section);
 }
 
-/* ============== Tabs (Tasks page) ============== */
-.tabs {
+/* ============== Kanban board (Tasks page) ============== */
+.team-legend {
   display: flex;
-  gap: 0;
-  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+  gap: 1rem;
   margin: 1rem 0 1.5rem;
-  overflow-x: auto;
-  scrollbar-width: none;
+  padding: 0.7rem 1rem;
+  background: var(--bg-section);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.82rem;
 }
 
-.tabs::-webkit-scrollbar { display: none; }
-
-.tab {
-  background: transparent;
-  border: none;
-  padding: 0.7rem 1.1rem;
-  font-family: inherit;
-  font-size: 0.9rem;
+.team-legend .legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-weight: 600;
   color: var(--ink-soft);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  white-space: nowrap;
 }
 
-.tab:hover { color: var(--ink); }
-
-.tab.active {
-  color: var(--accent-deep);
-  border-bottom-color: var(--accent);
+.team-legend .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
 }
 
-.tab .count {
-  display: inline-block;
-  margin-left: 0.4rem;
-  font-size: 0.75rem;
+.swatch.mentor, .kanban-card.mentor { --team: var(--accent); }
+.swatch.fw,     .kanban-card.fw     { --team: #3b82f6; }
+.swatch.ctrl,   .kanban-card.ctrl   { --team: #10b981; }
+.swatch.soft,   .kanban-card.soft   { --team: #8b5cf6; }
+.swatch { background: var(--team); }
+
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+  align-items: start;
+}
+
+.kanban-col {
   background: var(--bg-section);
-  color: var(--sub);
-  padding: 0.05rem 0.45rem;
-  border-radius: 10px;
-  font-weight: 600;
   border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.8rem;
+  min-width: 0;
 }
 
-.tab.active .count {
-  background: var(--accent);
+.kanban-col-header {
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.3rem 0.4rem 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--line);
+  margin-bottom: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.kanban-col-header .count {
+  font-size: 0.74rem;
+  background: var(--ink-soft);
   color: white;
-  border-color: var(--accent);
+  border-radius: 10px;
+  padding: 0.05rem 0.5rem;
+  font-weight: 700;
 }
 
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
+.kanban-col.doing .kanban-col-header { color: var(--accent-deep); }
+.kanban-col.doing .kanban-col-header .count { background: var(--accent); }
+.kanban-col.done .kanban-col-header { color: var(--done); }
+.kanban-col.done .kanban-col-header .count { background: var(--done); }
+
+.kanban-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--team, var(--sub));
+  border-radius: 4px;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.kanban-card:last-child { margin-bottom: 0; }
+
+.kanban-card .card-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin-bottom: 0.45rem;
+}
+
+.kanban-card .card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.kanban-card .team {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  color: white;
+  background: var(--team, var(--sub));
+}
+
+.kanban-card .due {
+  font-size: 0.72rem;
+  color: var(--sub);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .kanban { grid-template-columns: 1fr; }
+}
 
 /* ============== Purchase tables ============== */
 .purchase-section {

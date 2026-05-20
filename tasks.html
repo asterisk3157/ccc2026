@@ -6,7 +6,7 @@
 <title>Tasks — CCC2026 電子工作班</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
-<meta name="description" content="CCC2026 電子工作班の各班別タスクボード。役割ごとに、いま何をやるかをまとめています。">
+<meta name="description" content="CCC2026 電子工作班のタスクボード。進捗をカンバン形式で一覧できます。">
 <meta name="theme-color" content="#EF8733">
 </head>
 <body>
@@ -34,247 +34,116 @@
   <div class="container">
 
     <div class="page-title">
-      <h1>各班のタスク</h1>
+      <h1>タスクボード</h1>
       <p class="lead">
-        班ごとに、現在のタスクと進捗をまとめています。
-        次回の全体MTGは 2026年5月26日（火）です。クレーンゲーム完成（6月頭）に向けて進めています。
+        プロジェクトのタスクを「これから・進行中・完了」で一覧しています。
+        次回の全体MTGは 2026年5月26日（火）、クレーンゲーム完成（6月頭）に向けて進行中です。
       </p>
     </div>
 
-    <div class="tabs" role="tablist">
-      <button class="tab active" data-tab="mentor" role="tab">メンター <span class="count">7</span></button>
-      <button class="tab" data-tab="framework" role="tab">フレームワーク班 <span class="count">5</span></button>
-      <button class="tab" data-tab="controller" role="tab">コントローラー班 <span class="count">4</span></button>
-      <button class="tab" data-tab="software" role="tab">ソフトウェア・アプリ制作班 <span class="count">4</span></button>
+    <div class="team-legend">
+      <span class="legend-item"><span class="swatch mentor"></span>メンター</span>
+      <span class="legend-item"><span class="swatch fw"></span>フレームワーク班</span>
+      <span class="legend-item"><span class="swatch ctrl"></span>コントローラー班</span>
+      <span class="legend-item"><span class="swatch soft"></span>ソフトウェア・アプリ制作班</span>
     </div>
 
-    <!-- メンター -->
-    <div class="tab-panel active" data-panel="mentor">
-      <ol class="task-list">
+    <div class="kanban">
 
-        <li>
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <h4>環境整備（Discord・ドキュメントサイト）</h4>
-            <div class="body">Discord チャンネルを整え、ドキュメントサイトを立ち上げて公開しました。</div>
-          </div>
-          <div class="meta-col"><span class="tag done">完了</span></div>
-        </li>
+      <!-- ===== これから ===== -->
+      <div class="kanban-col todo">
+        <div class="kanban-col-header">これから <span class="count">9</span></div>
 
-        <li>
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <h4>各班と個別MTG</h4>
-            <div class="body">各班と 1on1 を実施し、何を作るか・役割・宿題を共有しました。</div>
-          </div>
-          <div class="meta-col"><span class="tag done">完了</span></div>
-        </li>
+        <div class="kanban-card mentor">
+          <div class="card-title">ゲーム本体のモック制作</div>
+          <div class="card-meta"><span class="team">メンター</span><span class="due">5月末</span></div>
+        </div>
+        <div class="kanban-card mentor">
+          <div class="card-title">実機実装のサポート</div>
+          <div class="card-meta"><span class="team">メンター</span><span class="due">5月末〜6月頭</span></div>
+        </div>
+        <div class="kanban-card fw">
+          <div class="card-title">筐体ラフ・パーツデザイン（手書き）</div>
+          <div class="card-meta"><span class="team">フレームワーク</span><span class="due">5/26まで</span></div>
+        </div>
+        <div class="kanban-card fw">
+          <div class="card-title">筐体の3Dモデル化（Blender）</div>
+          <div class="card-meta"><span class="team">フレームワーク</span><span class="due">5月末〜6月頭</span></div>
+        </div>
+        <div class="kanban-card fw">
+          <div class="card-title">筐体の製作（木材 / 3Dプリント）</div>
+          <div class="card-meta"><span class="team">フレームワーク</span><span class="due">6月頭</span></div>
+        </div>
+        <div class="kanban-card ctrl">
+          <div class="card-title">コード書き込み・実機で動作確認</div>
+          <div class="card-meta"><span class="team">コントローラー</span></div>
+        </div>
+        <div class="kanban-card ctrl">
+          <div class="card-title">本番に向けた調整（HID化・ロジック）</div>
+          <div class="card-meta"><span class="team">コントローラー</span><span class="due">6月頭</span></div>
+        </div>
+        <div class="kanban-card soft">
+          <div class="card-title">ゲーム本体の実装</div>
+          <div class="card-meta"><span class="team">ソフト</span><span class="due">5月末〜6月頭</span></div>
+        </div>
+        <div class="kanban-card soft">
+          <div class="card-title">UI・ランキング機能</div>
+          <div class="card-meta"><span class="team">ソフト</span><span class="due">6月頭</span></div>
+        </div>
+      </div>
 
-        <li>
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <h4>学習教材の準備</h4>
-            <div class="body">Blender 軽い導入の説明、Wokwi の予習用リンクなどを用意しました。</div>
-          </div>
-          <div class="meta-col"><span class="tag done">完了</span></div>
-        </li>
+      <!-- ===== 進行中 ===== -->
+      <div class="kanban-col doing">
+        <div class="kanban-col-header">進行中 <span class="count">3</span></div>
 
-        <li>
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <h4>パーツ選定・購入・配布</h4>
-            <div class="body">必要なパーツを Amazon で購入し、コントローラー班に渡しました。費用はサークルに請求します。</div>
-          </div>
-          <div class="meta-col"><span class="tag done">完了</span></div>
-        </li>
+        <div class="kanban-card mentor">
+          <div class="card-title">Arduino コードの作成・共有</div>
+          <div class="card-meta"><span class="team">メンター</span></div>
+        </div>
+        <div class="kanban-card ctrl">
+          <div class="card-title">自宅で実機を組み立て</div>
+          <div class="card-meta"><span class="team">コントローラー</span></div>
+        </div>
+        <div class="kanban-card soft">
+          <div class="card-title">ゲーム実装の調査・着手（Unity 6）</div>
+          <div class="card-meta"><span class="team">ソフト</span></div>
+        </div>
+      </div>
 
-        <li>
-          <div class="step-num">05</div>
-          <div class="step-content">
-            <h4>Arduino コードの作成・共有</h4>
-            <div class="body">Wokwi でプロトタイプ（ボタン・ジョイスティック・7セグ・LED）を作成しました。コードを GitHub に上げて、コントローラー班が実機で確認できるようにします。</div>
-          </div>
-          <div class="meta-col"><span class="tag accent">進行中</span></div>
-        </li>
+      <!-- ===== 完了 ===== -->
+      <div class="kanban-col done">
+        <div class="kanban-col-header">完了 <span class="count">7</span></div>
 
-        <li>
-          <div class="step-num">06</div>
-          <div class="step-content">
-            <h4>ゲーム本体のモック制作</h4>
-            <div class="body">クレーンゲーム本体のモックを用意し、ソフトウェア・アプリ制作班の参考実装にします。</div>
-          </div>
-          <div class="meta-col"><span class="tag">未着手</span><span class="tag">5月末</span></div>
-        </li>
+        <div class="kanban-card mentor">
+          <div class="card-title">環境整備（Discord・サイト）</div>
+          <div class="card-meta"><span class="team">メンター</span></div>
+        </div>
+        <div class="kanban-card mentor">
+          <div class="card-title">各班と個別MTG</div>
+          <div class="card-meta"><span class="team">メンター</span></div>
+        </div>
+        <div class="kanban-card mentor">
+          <div class="card-title">学習教材の準備</div>
+          <div class="card-meta"><span class="team">メンター</span></div>
+        </div>
+        <div class="kanban-card mentor">
+          <div class="card-title">パーツ選定・購入・配布</div>
+          <div class="card-meta"><span class="team">メンター</span></div>
+        </div>
+        <div class="kanban-card fw">
+          <div class="card-title">Blender 導入を受講</div>
+          <div class="card-meta"><span class="team">フレームワーク</span></div>
+        </div>
+        <div class="kanban-card ctrl">
+          <div class="card-title">Arduino 紹介・パーツ受領</div>
+          <div class="card-meta"><span class="team">コントローラー</span></div>
+        </div>
+        <div class="kanban-card soft">
+          <div class="card-title">技術選定（Unity 6 採用）</div>
+          <div class="card-meta"><span class="team">ソフト</span></div>
+        </div>
+      </div>
 
-        <li>
-          <div class="step-num">07</div>
-          <div class="step-content">
-            <h4>実機実装のサポート</h4>
-            <div class="body">コントローラー班が組み立てた実機の動作確認を一緒に行い、つまずいた箇所をサポートします。</div>
-          </div>
-          <div class="meta-col"><span class="tag">未着手</span><span class="tag">5月末〜6月頭</span></div>
-        </li>
-
-      </ol>
-    </div>
-
-    <!-- フレームワーク班 -->
-    <div class="tab-panel" data-panel="framework">
-      <ol class="task-list">
-
-        <li>
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <h4>個別MTG（Blender 軽い導入を受講）</h4>
-            <div class="body">メンターから Blender の基本操作、モデリングの流れ、書き出しまでを共有してもらいました。</div>
-          </div>
-          <div class="meta-col"><span class="tag done">完了</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <h4>筐体のラフを描く（手書き）</h4>
-            <div class="body">
-              筐体の見た目とパーツ配置を、紙にラフで描きます。
-              <ul>
-                <li>全体の形・サイズ感（卓上型、ノートPC のキーボードくらい）</li>
-                <li>スティック・投下ボタン・スタートボタン・7セグの位置</li>
-                <li>USB ケーブルの取り出し口</li>
-              </ul>
-            </div>
-          </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5/26までに持ち寄り</span>
-          </div>
-        </li>
-
-        <li>
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <h4>ボタン・スティックのデザイン（手書き）</h4>
-            <div class="body">投下ボタン、スタートボタン、スティック（つまみ部分）のデザインをラフでスケッチします。タクトスイッチ用の 3D プリントカバーの設計もここに含みます。</div>
-          </div>
-          <div class="meta-col">
-            <span class="tag">未着手</span>
-            <span class="tag">5/26までに持ち寄り</span>
-          </div>
-        </li>
-
-        <li>
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <h4>筐体の 3D モデル化（Blender）</h4>
-            <div class="body">手書きラフをもとに、寸法を正確にした 3D モデルを Blender で作成します。後工程の 3D プリントや木工指示書のもとデータになります。</div>
-          </div>
-          <div class="meta-col"><span class="tag">5月末〜6月頭</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">05</div>
-          <div class="step-content">
-            <h4>筐体の製作（木材または 3D プリント）</h4>
-            <div class="body">ホームセンターで木材を購入して組むか、3D プリントで出力するかを、設計内容に応じて判断します。内部にはパーツ収納と配線スペースを確保します。</div>
-          </div>
-          <div class="meta-col"><span class="tag">6月頭</span></div>
-        </li>
-
-      </ol>
-    </div>
-
-    <!-- コントローラー班 -->
-    <div class="tab-panel" data-panel="controller">
-      <ol class="task-list">
-
-        <li>
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <h4>個別MTG（何を作るか・Arduino 紹介）</h4>
-            <div class="body">メンターと対面で 1on1 を行い、プロジェクト全体・Arduino でできること・今後の流れを共有してもらいました。クレーンゲーム用のパーツも受け取りました。</div>
-          </div>
-          <div class="meta-col"><span class="tag done">完了</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <h4>自宅で実機を組み立て</h4>
-            <div class="body">受け取ったパーツ（Arduino Pro Micro、ジョイスティック、ボタン、7セグなど）を、手持ちの工具で組み立てます。配線の参考は、メンターが作った Wokwi プロトタイプを使います。</div>
-          </div>
-          <div class="meta-col"><span class="tag accent">進行中</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <h4>コードを書き込んで実機で動作確認</h4>
-            <div class="body">メンターが GitHub に上げたコードを Pro Micro に書き込み、ボタン・ジョイスティック・7セグ・LED が想定通り動くかを確認します。</div>
-          </div>
-          <div class="meta-col"><span class="tag">これから</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <h4>本番に向けた調整</h4>
-            <div class="body">HID キーボード化、ゲームロジックに沿った動作（カウントダウン、3回繰り返し、LED 制御）を、メンターと一緒に仕上げていきます。</div>
-          </div>
-          <div class="meta-col"><span class="tag">6月頭</span></div>
-        </li>
-
-      </ol>
-    </div>
-
-    <!-- ソフトウェア・アプリ制作班 -->
-    <div class="tab-panel" data-panel="software">
-      <ol class="task-list">
-
-        <li>
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <h4>個別MTG（作りたいアプリの相談）</h4>
-            <div class="body">メンターと相談して方針を決めました。動きをリアルに表現するため、Unity 6 を採用することにしています。</div>
-          </div>
-          <div class="meta-col"><span class="tag done">完了</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <h4>選んだ技術の調査</h4>
-            <div class="body">Unity 6 で開発に着手しています。現在はアーム制御方式（MovePosition と キネマティック + Joint）の選択肢を比較しながら実装中です。</div>
-          </div>
-          <div class="meta-col"><span class="tag accent">進行中</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <h4>ゲーム本体の実装</h4>
-            <div class="body">メンター提供のモックを土台に、本番用のクレーンゲームを実装します。WASD で 8方向移動、Space で投下、Enter でスタートというシンプルな入力で動かします。</div>
-          </div>
-          <div class="meta-col"><span class="tag">5月末〜6月頭</span></div>
-        </li>
-
-        <li>
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <h4>UI とランキング機能</h4>
-            <div class="body">
-              以下を実装します。
-              <ul>
-                <li>タイトル画面（本日のトップ10 を表示）</li>
-                <li>プレイ中 HUD（残り時間、取得数）</li>
-                <li>リザルト画面（取得数、現在の順位）</li>
-                <li>localStorage で取得数を永続化</li>
-              </ul>
-            </div>
-          </div>
-          <div class="meta-col"><span class="tag">6月頭</span></div>
-        </li>
-
-      </ol>
     </div>
 
   </div>
@@ -286,18 +155,6 @@
     <div>2026</div>
   </div>
 </footer>
-
-<script>
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
-      document.querySelectorAll('.tab-panel').forEach(p => {
-        p.classList.toggle('active', p.dataset.panel === target);
-      });
-    });
-  });
-</script>
 
 </body>
 </html>
