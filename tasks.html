@@ -38,7 +38,7 @@
       <h1>タスクボード</h1>
       <p class="lead">
         プロジェクトのタスクを「これから・進行中・完了」で一覧しています。
-        次回の全体MTGは 2026年5月26日（火）、クレーンゲーム完成（6月頭）に向けて進行中です。
+        2026年6月2日（火）の中間発表に向けて、クレーンゲームの仕上げを進めています。
       </p>
     </div>
 
@@ -53,70 +53,74 @@
 
       <!-- ===== これから ===== -->
       <div class="kanban-col todo">
-        <div class="kanban-col-header">これから <span class="count">9</span></div>
+        <div class="kanban-col-header">これから <span class="count">4</span></div>
 
+        <div class="kanban-card fw">
+          <div class="card-title">台のアップデート（お菓子格納＋取れたら音が鳴る仕組み）</div>
+          <div class="card-meta"><span class="team">フレームワーク</span></div>
+        </div>
         <div class="kanban-card mentor">
-          <div class="card-title">ゲーム本体のモック制作</div>
-          <div class="card-meta"><span class="team">メンター</span><span class="due">5月末</span></div>
-        </div>
-        <div class="kanban-card mentor">
-          <div class="card-title">実機実装のサポート</div>
-          <div class="card-meta"><span class="team">メンター</span><span class="due">5月末〜6月頭</span></div>
-        </div>
-        <div class="kanban-card fw">
-          <div class="card-title">筐体ラフ・パーツデザイン（手書き）</div>
-          <div class="card-meta"><span class="team">フレームワーク</span><span class="due">5/26まで</span></div>
-        </div>
-        <div class="kanban-card fw">
-          <div class="card-title">筐体の3Dモデル化（Blender）</div>
-          <div class="card-meta"><span class="team">フレームワーク</span><span class="due">5月末〜6月頭</span></div>
-        </div>
-        <div class="kanban-card fw">
-          <div class="card-title">筐体の製作（木材 / 3Dプリント）</div>
-          <div class="card-meta"><span class="team">フレームワーク</span><span class="due">6月頭</span></div>
-        </div>
-        <div class="kanban-card ctrl">
-          <div class="card-title">コード書き込み・実機で動作確認</div>
-          <div class="card-meta"><span class="team">コントローラー</span></div>
-        </div>
-        <div class="kanban-card ctrl">
-          <div class="card-title">本番に向けた調整（HID化・ロジック）</div>
-          <div class="card-meta"><span class="team">コントローラー</span><span class="due">6月頭</span></div>
+          <div class="card-title">中間発表（6/2）の準備・スライド作成</div>
+          <div class="card-meta"><span class="team">メンター</span><span class="due">6/2まで</span></div>
         </div>
         <div class="kanban-card soft">
-          <div class="card-title">ゲーム本体の実装</div>
-          <div class="card-meta"><span class="team">ソフト</span><span class="due">5月末〜6月頭</span></div>
+          <div class="card-title">レースゲーム（既製ハンドルコントローラー使用）</div>
+          <div class="card-meta"><span class="team">ソフト＋モデル</span></div>
         </div>
         <div class="kanban-card soft">
-          <div class="card-title">UI・ランキング機能</div>
-          <div class="card-meta"><span class="team">ソフト</span><span class="due">6月頭</span></div>
+          <div class="card-title">バーチャル輪投げ（センサー使用）</div>
+          <div class="card-meta"><span class="team">全体</span></div>
         </div>
       </div>
 
       <!-- ===== 進行中 ===== -->
       <div class="kanban-col doing">
-        <div class="kanban-col-header">進行中 <span class="count">3</span></div>
+        <div class="kanban-col-header">進行中 <span class="count">5</span></div>
 
-        <div class="kanban-card mentor">
-          <div class="card-title">Arduino コードの作成・共有</div>
-          <div class="card-meta"><span class="team">メンター</span></div>
-        </div>
-        <div class="kanban-card ctrl">
-          <div class="card-title">自宅で実機を組み立て</div>
-          <div class="card-meta"><span class="team">コントローラー</span></div>
+        <div class="kanban-card soft">
+          <div class="card-title">景品の追加・サウンド・エフェクト</div>
+          <div class="card-meta"><span class="team">ソフト</span></div>
         </div>
         <div class="kanban-card soft">
-          <div class="card-title">ゲーム実装の調査・着手（Unity 6）</div>
+          <div class="card-title">Web 公開用のセットアップ</div>
           <div class="card-meta"><span class="team">ソフト</span></div>
+        </div>
+        <div class="kanban-card ctrl">
+          <div class="card-title">コントローラーのプログラム開発</div>
+          <div class="card-meta"><span class="team">コントローラー</span></div>
+        </div>
+        <div class="kanban-card fw">
+          <div class="card-title">景品の 3D モデル作成</div>
+          <div class="card-meta"><span class="team">フレームワーク</span></div>
+        </div>
+        <div class="kanban-card mentor">
+          <div class="card-title">デバッグ用テストサイトの作成</div>
+          <div class="card-meta"><span class="team">メンター</span></div>
         </div>
       </div>
 
       <!-- ===== 完了 ===== -->
       <div class="kanban-col done">
-        <div class="kanban-col-header">完了 <span class="count">7</span></div>
+        <div class="kanban-col-header">完了 <span class="count">8</span></div>
 
+        <div class="kanban-card soft">
+          <div class="card-title">ゲーム本体の実装（クレーンゲーム）</div>
+          <div class="card-meta"><span class="team">ソフト</span></div>
+        </div>
+        <div class="kanban-card ctrl">
+          <div class="card-title">回路の組み立て・動作確認</div>
+          <div class="card-meta"><span class="team">コントローラー</span></div>
+        </div>
+        <div class="kanban-card fw">
+          <div class="card-title">台・ボタンの 3D モデル作成</div>
+          <div class="card-meta"><span class="team">フレームワーク</span></div>
+        </div>
+        <div class="kanban-card soft">
+          <div class="card-title">技術選定（Unity 6 採用）</div>
+          <div class="card-meta"><span class="team">ソフト</span></div>
+        </div>
         <div class="kanban-card mentor">
-          <div class="card-title">環境整備（Discord・サイト）</div>
+          <div class="card-title">パーツ選定・購入・配布</div>
           <div class="card-meta"><span class="team">メンター</span></div>
         </div>
         <div class="kanban-card mentor">
@@ -128,20 +132,8 @@
           <div class="card-meta"><span class="team">メンター</span></div>
         </div>
         <div class="kanban-card mentor">
-          <div class="card-title">パーツ選定・購入・配布</div>
+          <div class="card-title">環境整備（Discord・サイト）</div>
           <div class="card-meta"><span class="team">メンター</span></div>
-        </div>
-        <div class="kanban-card fw">
-          <div class="card-title">Blender 導入を受講</div>
-          <div class="card-meta"><span class="team">フレームワーク</span></div>
-        </div>
-        <div class="kanban-card ctrl">
-          <div class="card-title">Arduino 紹介・パーツ受領</div>
-          <div class="card-meta"><span class="team">コントローラー</span></div>
-        </div>
-        <div class="kanban-card soft">
-          <div class="card-title">技術選定（Unity 6 採用）</div>
-          <div class="card-meta"><span class="team">ソフト</span></div>
         </div>
       </div>
 
