@@ -358,86 +358,176 @@
     <section class="page-section" id="program">
       <h2><span class="num">2.</span> プログラミング</h2>
 
+      <h3>ゲームの流れ</h3>
       <p>
-        以下が現在のプロトタイプコードです（Wokwi で動作確認済み）。
-        GitHub にも置いてあります：
-        <a href="https://github.com/asterisk3157/ccc2026/blob/main/prototypes/cranegame-controller.ino" target="_blank" rel="noopener">cranegame-controller.ino</a>
+        係員が Start を押すと1ラウンド開始。Drop ボタン押下、または 30秒経過で強制的に投下し、待機に戻ります。
+        これを繰り返します（3回で1プレイ）。
+      </p>
+      <div class="svg-box">
+        <svg viewBox="0 0 620 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ゲームの流れ フローチャート">
+          <defs>
+            <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L7,3 L0,6 Z" fill="#444"/>
+            </marker>
+          </defs>
+
+          <!-- 待機 -->
+          <rect x="175" y="30" width="250" height="64" rx="8" fill="white" stroke="#dee2e6" stroke-width="2"/>
+          <text x="300" y="58" text-anchor="middle" font-size="16" font-weight="bold" fill="#222" font-family="sans-serif">待機（IDLE）</text>
+          <text x="300" y="79" text-anchor="middle" font-size="11" fill="#777" font-family="sans-serif">Start待ち。ジョイ・Drop は無視</text>
+
+          <!-- 待機 → プレイ中 -->
+          <line x1="300" y1="94" x2="300" y2="168" stroke="#444" stroke-width="2" marker-end="url(#ah)"/>
+          <text x="312" y="120" font-size="11.5" fill="#c25d1a" font-weight="bold" font-family="sans-serif">① 係員が Start を押す</text>
+          <text x="312" y="138" font-size="10.5" fill="#777" font-family="sans-serif">Enter送信 / Timer=30 / LED点灯</text>
+
+          <!-- プレイ中 -->
+          <rect x="160" y="170" width="280" height="98" rx="8" fill="#fff3e9" stroke="#EF8733" stroke-width="2"/>
+          <text x="300" y="196" text-anchor="middle" font-size="16" font-weight="bold" fill="#222" font-family="sans-serif">プレイ中（30秒）</text>
+          <text x="300" y="220" text-anchor="middle" font-size="11.5" fill="#555" font-family="sans-serif">・7セグ カウントダウン</text>
+          <text x="300" y="238" text-anchor="middle" font-size="11.5" fill="#555" font-family="sans-serif">・ジョイスティック → WASD 送信</text>
+          <text x="300" y="256" text-anchor="middle" font-size="11.5" fill="#555" font-family="sans-serif">・Drop で Space 送信も可</text>
+
+          <!-- プレイ中 → 投下 -->
+          <line x1="300" y1="268" x2="300" y2="340" stroke="#444" stroke-width="2" marker-end="url(#ah)"/>
+          <text x="312" y="302" font-size="11.5" fill="#c25d1a" font-weight="bold" font-family="sans-serif">② Drop押下 または 30秒経過</text>
+
+          <!-- 投下 -->
+          <rect x="175" y="342" width="250" height="78" rx="8" fill="white" stroke="#dee2e6" stroke-width="2"/>
+          <text x="300" y="368" text-anchor="middle" font-size="16" font-weight="bold" fill="#222" font-family="sans-serif">投下（強制押し判定）</text>
+          <text x="300" y="390" text-anchor="middle" font-size="11" fill="#777" font-family="sans-serif">Space送信 / WASD全release</text>
+          <text x="300" y="406" text-anchor="middle" font-size="11" fill="#777" font-family="sans-serif">LED消灯 / 操作受付終了</text>
+
+          <!-- 投下 → 降下アニメ -->
+          <line x1="300" y1="420" x2="300" y2="476" stroke="#444" stroke-width="2" marker-end="url(#ah)"/>
+
+          <!-- 降下アニメ（Unity） -->
+          <rect x="175" y="478" width="250" height="56" rx="8" fill="#f8f9fa" stroke="#adb5bd" stroke-width="2" stroke-dasharray="5 4"/>
+          <text x="300" y="503" text-anchor="middle" font-size="14" font-weight="bold" fill="#555" font-family="sans-serif">降下アニメーション</text>
+          <text x="300" y="521" text-anchor="middle" font-size="11" fill="#888" font-family="sans-serif">（Unity 側で再生）</text>
+
+          <!-- ループバック → 待機 -->
+          <path d="M425,506 H560 V62 H425" fill="none" stroke="#444" stroke-width="2" marker-end="url(#ah)"/>
+          <text x="575" y="300" font-size="11.5" fill="#c25d1a" font-weight="bold" font-family="sans-serif" transform="rotate(90 575 300)">③ アニメ後、また Start（繰り返し）</text>
+        </svg>
+      </div>
+
+      <h3>実装のヒント</h3>
+      <p>
+        コントローラー班が書きはじめたコード（<code>Is_game</code> / <code>Timer</code>）をベースに、全体の流れ（loop の骨格）と、必要な部品（関数）をまとめました。
+        まず「全体像」で loop が何をするかを掴んでから、①〜④の部品を用意して loop に書き込んでいくと分かりやすいです。
       </p>
 
+      <h4>全体像：loop の流れ</h4>
+      <p>これが骨格です。コメントの各処理を、下の①〜④の部品を使って書き込んでいきます。</p>
+      <pre class="code"><code>void loop() {
+  if (!Is_game) {
+    // 【待機】
+    //   Start が押されたら（②の justPressed を使う）：
+    //     Keyboard.write(KEY_RETURN);   // Enter送信
+    //     Timer = 30;  lastTick = millis();
+    //     digitalWrite(LED_DROP, HIGH); // LED点灯
+    //     Is_game = true;
+    //   ※ ジョイスティックは送らない（操作を受け付けない）
+
+  } else {
+    // 【プレイ中】
+    //   1) ④のカウントダウン処理を書く（Timer=0 なら投下へ）
+    //   2) ③のジョイスティック → WASD を書く（setKey を4方向ぶん）
+    //   3) Drop が押された（②）or Timer=0 → 投下：
+    //        Keyboard.write(' ');          // Space送信
+    //        keyW/keyA/keyS/keyD を全部 release
+    //        digitalWrite(LED_DROP, LOW);  // LED消灯
+    //        Is_game = false;              // 待機に戻る
+  }
+}</code></pre>
+
+      <h4>① ピン定義・状態変数・setup</h4>
       <pre class="code"><code>#include &lt;TM1637Display.h&gt;
+#include &lt;Keyboard.h&gt;
 
-// ===== ピン定義 =====
-#define CLK 2          // 7セグ TM1637 CLK
-#define DIO 3          // 7セグ TM1637 DIO
-
-#define BTN_DROP  4    // 投下ボタン
-#define BTN_START 5    // スタートボタン
-#define LED_DROP  6    // 投下ボタン照明用LED（220Ω 経由）
-
-#define JOY_X A0       // ジョイスティック VRX (X軸)
-#define JOY_Y A1       // ジョイスティック VRY (Y軸)
-
+#define CLK 2
+#define DIO 3
+#define BTN_DROP  4
+#define BTN_START 5
+#define LED_DROP  6
+#define JOY_X A0
+#define JOY_Y A1
 #define THRESHOLD_LOW  300
 #define THRESHOLD_HIGH 700
+
+bool Is_game = false;        // プレイ中か
+int  Timer = 30;             // 残り秒数
+unsigned long lastTick = 0;  // カウントダウン用
 
 TM1637Display display(CLK, DIO);
 
 void setup() {
-  Serial.begin(9600);
   pinMode(BTN_DROP, INPUT_PULLUP);
   pinMode(BTN_START, INPUT_PULLUP);
   pinMode(LED_DROP, OUTPUT);
   display.setBrightness(7);
   display.showNumberDec(0);
-  digitalWrite(LED_DROP, LOW);
-  Serial.println("Ready");
-}
-
-void loop() {
-  // 投下ボタン
-  if (digitalRead(BTN_DROP) == LOW) {
-    Serial.println("DROP pressed");
-    display.showNumberDec(0);
-    digitalWrite(LED_DROP, HIGH);
-    delay(250);
-    digitalWrite(LED_DROP, LOW);
-  }
-  // スタートボタン
-  if (digitalRead(BTN_START) == LOW) {
-    Serial.println("START pressed");
-    display.showNumberDec(30);
-    delay(200);
-  }
-  // ジョイスティック（物理向きに合わせて反転済み）
-  int x = analogRead(JOY_X);
-  int y = analogRead(JOY_Y);
-  String dir = "";
-  if (y &gt; THRESHOLD_HIGH) dir += "UP ";
-  if (y &lt; THRESHOLD_LOW)  dir += "DOWN ";
-  if (x &gt; THRESHOLD_HIGH) dir += "LEFT ";
-  if (x &lt; THRESHOLD_LOW)  dir += "RIGHT ";
-  if (dir.length() &gt; 0) {
-    Serial.print("Joy: "); Serial.println(dir);
-  }
-  delay(100);
+  Keyboard.begin();
+  delay(2000);   // 暴走対策：起動後すこし待つ
 }</code></pre>
 
-      <h3>これを元に、実際のゲーム向けに改造してください</h3>
-      <p>下記のポイントを実装すると、本番のクレーンゲームとして動くようになります。</p>
+      <h4>② ボタンの「押された瞬間」を検出（チャタリング対策込み）</h4>
+      <p>
+        機械式ボタンは押した瞬間に信号が細かくバタつきます（チャタリング）。
+        「一度変化したら少しの間は無視する」ことで防ぎます。これを使うと、押しっぱなしでも1回だけ反応します。
+      </p>
+      <pre class="code"><code>const unsigned long DEBOUNCE = 30;  // ms
+
+// pin が押された瞬間だけ true を返す（チャタリング対策込み）
+// stableLow=安定状態, lastChange=最後に変化した時刻（ボタンごとに用意）
+bool justPressed(int pin, bool &amp;stableLow, unsigned long &amp;lastChange) {
+  bool reading = (digitalRead(pin) == LOW);            // 押すと LOW
+  if (reading != stableLow &amp;&amp; millis() - lastChange &gt; DEBOUNCE) {
+    lastChange = millis();
+    stableLow = reading;
+    if (stableLow) return true;                        // HIGH→LOW = 押された瞬間
+  }
+  return false;
+}
+
+// ボタンごとに状態をグローバルに用意する：
+// bool startLow = false, dropLow = false;
+// unsigned long startChg = 0, dropChg = 0;
+// 使うとき：if (justPressed(BTN_START, startLow, startChg)) { ... }</code></pre>
+
+      <h4>③ ジョイスティック → WASD（押した間だけ送る）</h4>
+      <p>倒した瞬間に <code>press</code>、戻した瞬間に <code>release</code>。これでキーが押しっぱなしで固まりません。</p>
+      <pre class="code"><code>bool keyW = false, keyA = false, keyS = false, keyD = false;
+
+// 倒した瞬間に press、戻した瞬間に release
+void setKey(char key, bool &amp;state, bool wantPress) {
+  if (wantPress &amp;&amp; !state)      { Keyboard.press(key);   state = true;  }
+  else if (!wantPress &amp;&amp; state) { Keyboard.release(key); state = false; }
+}
+
+// プレイ中に呼ぶイメージ：
+// int x = analogRead(JOY_X);  int y = analogRead(JOY_Y);
+// setKey('w', keyW, y &gt; THRESHOLD_HIGH);  // 上  …これを4方向ぶん</code></pre>
+
+      <h4>④ カウントダウンは millis() で（delay を使わない）</h4>
+      <p><code>delay(1000)</code> を使うと、その1秒間ジョイスティックやボタンが反応しません。<code>millis()</code> で「1秒経ったら減らす」方式にします。</p>
+      <pre class="code"><code>// 「プレイ中」の中で呼ぶ。1秒ごとに Timer を1減らす
+if (millis() - lastTick &gt;= 1000) {
+  lastTick += 1000;
+  Timer--;
+  display.showNumberDec(Timer);
+  if (Timer &lt;= 0) {
+    // ここに「時間切れ = 強制投下」の処理を書く
+  }
+}</code></pre>
+
+      <h3>ここから仕上げるポイント</h3>
       <ul class="mod-list">
-        <li><strong>HID キーボード化</strong>：<code>#include &lt;Keyboard.h&gt;</code> を追加し、<code>Serial.println(...)</code> を実際のキー送信に置き換える
-          <ul>
-            <li>投下ボタン → <code>Keyboard.press(' ')</code>（Space）</li>
-            <li>スタートボタン → <code>Keyboard.press(KEY_RETURN)</code>（Enter）</li>
-            <li>ジョイスティック → <code>Keyboard.press('w' / 'a' / 's' / 'd')</code></li>
-          </ul>
-        </li>
-        <li><strong>押している間だけ入力</strong>：ジョイスティックは倒している間 <code>press</code>、戻したら <code>release</code> する</li>
-        <li><strong>カウントダウン処理</strong>：スタート押下で 30 → 0 を 1秒ごとに減らす（<code>delay</code> ではなく <code>millis()</code> ベースが望ましい）</li>
-        <li><strong>3回繰り返し</strong>：1回（30秒）終わったら次のスタート待ち、3回終わったら待機状態に戻す</li>
-        <li><strong>タイマー切れで強制投下</strong>：30秒経過時に自動で投下（Space 相当）を送る</li>
-        <li><strong>LED 制御</strong>：ゲーム中は点灯、投下後に消灯（将来的には投下後3秒点滅 → 消灯）</li>
-        <li><strong>チャタリング対策の見直し</strong>：<code>delay()</code> での簡易対策を、状態管理（前回値との比較）に置き換える</li>
+        <li><strong>しきい値（THRESHOLD）を実機で調整</strong>：ジョイスティックの個体差で中央値がズレるので、実際の値を見て微調整する</li>
+        <li><strong>本番ゲーム（Unity）との接続確認</strong>：WASD / Space / Enter が正しく届くか、デバッグ用サイトで確認する</li>
+        <li><strong>LED の発展</strong>：将来は「投下後に3秒点滅 → 消灯」などの演出も追加できる</li>
+        <li><strong>ベルは手動</strong>：景品が取れたら係員が手動でベルを鳴らす運用。コントローラー側の電子工作は不要</li>
       </ul>
 
       <div class="callout">
