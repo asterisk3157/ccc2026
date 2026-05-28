@@ -6,7 +6,7 @@
 <title>バーチャル輪投げ — CCC2026 電子工作班</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
-<meta name="description" content="CCC2026 電子工作班の第2作品、バーチャル輪投げ。クレーン完成後に着手予定。">
+<meta name="description" content="CCC2026 電子工作班の第2作品、バーチャル輪投げ。Pro MicroとMPU6050を使った投げ動作検出を試作中です。">
 <meta name="theme-color" content="#EF8733">
 </head>
 <body>
@@ -18,6 +18,7 @@
       <a href="index.html">Home</a>
       <a href="cranegame.html">Crane</a>
       <a href="tasks.html">Tasks</a>
+      <a href="ringtoss.html" class="active">Wanage</a>
       <a href="controller.html">Controller</a>
     </nav>
   </div>
@@ -38,22 +39,148 @@
       <h1>バーチャル輪投げ</h1>
       <p class="lead">
         画面の的に向かって輪を投げる、ハイテク縁日ゲームです。
-        輪を投げる動きをセンサーで検出するデバイスを使う構想で、クレーンゲーム完成後に本格着手します。
+        Pro Micro と MPU6050 を入れた輪っか型デバイスでジャイロの動きを読み取り、画面内の輪の初速ベクトルへ変換する方針で試作を進めています。
       </p>
       <div style="margin-top: 1rem;">
-        <span class="tag">構想中</span>
-        <span class="tag">センサー使用</span>
+        <span class="tag accent">試作準備中</span>
+        <span class="tag">ジャイロ</span>
+        <span class="tag">線形回帰</span>
       </div>
     </div>
 
-    <section class="page-section">
-      <h2><span class="num">1.</span> 進捗状況</h2>
+    <div class="toc">
+      <div class="toc-title">目次</div>
+      <ol>
+        <li><a href="#goal">目的</a></li>
+        <li><a href="#flow">操作フロー</a></li>
+        <li><a href="#pipeline">開発パイプライン</a></li>
+        <li><a href="#tools">プロトタイプ</a></li>
+      </ol>
+    </div>
+
+    <section class="page-section" id="goal">
+      <h2><span class="num">1.</span> 目的</h2>
       <p>
-        クレーンゲームの完成後に本格的に着手します。輪を投げる動きはセンサーで検出する方針で、
-        ソフトウェア・モデリング・電子工作の各班で協力して作る予定です。
-        詳細が決まり次第、このページに仕様と作業ステップを掲載します。
+        手に持って振る輪っか型デバイスから、投げる方向と強さを推定します。
+        最初は 3×3 の的のどこへ投げたかを当てる分類で始め、集めたデータが増えたら 3 次元速度ベクトルの回帰へ発展させます。
       </p>
-      <a class="btn" href="cranegame.html">先にクレーンゲームを見る</a>
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>入力</th>
+            <td>MPU6050 のジャイロ3軸 <code>gx, gy, gz</code> の時系列</td>
+          </tr>
+          <tr>
+            <th>出力</th>
+            <td>画面内の輪に渡す <code>vx, vy, vz, strength</code></td>
+          </tr>
+          <tr>
+            <th>学習</th>
+            <td>PC 上の Python で線形モデルを学習</td>
+          </tr>
+          <tr>
+            <th>推論</th>
+            <td>Pro Micro に係数を埋め込み、シリアルで結果を送信</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page-section" id="flow">
+      <h2><span class="num">2.</span> 操作フロー</h2>
+      <ul class="task-list">
+        <li>
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>ボタンを押し込む</h4>
+            <div class="body">1つのボタンを押した瞬間から、ジャイロ3軸の時系列を記録します。</div>
+          </div>
+          <div class="meta-col"><span class="tag">開始</span></div>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>手前にまっすぐ引く</h4>
+            <div class="body">最初の短い区間でジャイロ平均を取り、投げ動作の基準にします。</div>
+          </div>
+          <div class="meta-col"><span class="tag">基準取り</span></div>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>的に向けて前へ振る</h4>
+            <div class="body">ジャイロ3軸の大きさのピークを仮想リリース点として、ピーク値・積分・平均・最大最小を特徴量にします。</div>
+          </div>
+          <div class="meta-col"><span class="tag">投げ動作</span></div>
+        </li>
+        <li>
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>振り終わったらボタンを離す</h4>
+            <div class="body">ボタンを離すと1投分の測定を終了します。推論時は内部でピークを探し、<code>RING,vx,vy,vz,strength</code> を送信します。</div>
+          </div>
+          <div class="meta-col"><span class="tag accent">安全</span></div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="page-section" id="pipeline">
+      <h2><span class="num">3.</span> 開発パイプライン</h2>
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>Phase 0</th>
+            <td>開発者 1 人のデータで、ファーム、Web 収集、Python 学習、Arduino 推論までを通します。</td>
+          </tr>
+          <tr>
+            <th>Phase 1</th>
+            <td>3×3 グリッドのデータ収集ツールで、投げ動作のジャイロ時系列と正解ラベルを CSV 化します。</td>
+          </tr>
+          <tr>
+            <th>Phase 2</th>
+            <td>Python で特徴量を抽出し、まず 9 マス分類の線形モデルを学習します。</td>
+          </tr>
+          <tr>
+            <th>Phase 3</th>
+            <td>生成した係数ヘッダを Pro Micro 用スケッチに入れ、デバイス単体で推論します。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page-section">
+      <h2 id="tools"><span class="num">4.</span> プロトタイプ</h2>
+      <p>
+        データ収集から推論までを通すための最小構成を用意しています。
+        収集ページは Web Serial API を使うため、Chrome または Edge で HTTPS か localhost から開きます。
+      </p>
+      <table class="data">
+        <tbody>
+          <tr>
+            <th>データ収集ページ</th>
+            <td><a href="ringtoss-collect.html">ringtoss-collect.html</a></td>
+          </tr>
+          <tr>
+            <th>軌跡プレビュー</th>
+            <td><a href="ringtoss-trajectory.html">ringtoss-trajectory.html</a></td>
+          </tr>
+          <tr>
+            <th>収集ファーム</th>
+            <td><code>prototypes/ringtoss_data_collector/ringtoss_data_collector.ino</code></td>
+          </tr>
+          <tr>
+            <th>学習スクリプト</th>
+            <td><code>tools/ringtoss_train.py</code></td>
+          </tr>
+          <tr>
+            <th>推論ファーム</th>
+            <td><code>prototypes/ringtoss_inference/ringtoss_inference.ino</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn" href="ringtoss-collect.html">データ収集ページを開く</a>
+      <a class="btn secondary" href="ringtoss-trajectory.html">軌跡プレビューを開く</a>
+      <a class="btn secondary" href="ringtoss-howto.html">手順メモを見る</a>
     </section>
 
   </div>
