@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>電子工作班 中間報告 — CCC2026</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#EF8733">
+<style>
+  :root{
+    --accent:#EF8733;
+    --accent-deep:#d96f1a;
+    --accent-soft:#fff7ef;
+    --ink:#1a1a1a;
+    --sub:#6b6b6b;
+    --faint:#a9a39a;
+    --line:#e5e2dc;
+    --paper:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+    color:var(--ink); background:#1a1a1a;
+    -webkit-font-smoothing:antialiased;
+    line-break:strict; word-break:normal;
+  }
+  .lead,.callout,.wd,.info .v,.rt,.sum-close,.toc .tt,.s-head h2,.role,.mbox .cap,
+  ul.bul li,.sum-list .row{
+    text-wrap:normal;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  .nb{white-space:nowrap}
+  .mark{color:var(--accent-deep); font-weight:800; white-space:nowrap}
+
+  .deck{position:relative;width:100vw;height:100vh}
+
+  .slide{
+    position:absolute; inset:0; padding:8vh 7.5vw 7.5vh;
+    display:none; flex-direction:column; background:var(--paper);
+  }
+  .slide.active{display:flex}
+
+  /* ---- motion (subtle, purposeful) ---- */
+  @keyframes rise{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
+  @keyframes barGrow{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+  .slide.active > *{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
+  .slide.active > *:nth-child(2){animation-delay:.07s}
+  .slide.active > *:nth-child(3){animation-delay:.14s}
+  .slide.active > *:nth-child(4){animation-delay:.21s}
+  .slide.active > *:nth-child(5){animation-delay:.28s}
+  .slide.active > *:nth-child(6){animation-delay:.35s}
+  .t-bar,.sum-bar{transform-origin:left; animation:barGrow .55s .25s cubic-bezier(.2,.7,.3,1) both}
+  @media (prefers-reduced-motion:reduce){
+    .slide.active > *{animation:none}
+    .t-bar,.sum-bar{animation:none}
+  }
+
+  /* ---- deck furniture ---- */
+  .brand{
+    position:absolute; left:7.5vw; bottom:4.5vh;
+    font-size:clamp(.7rem,1vw,.9rem); letter-spacing:.14em;
+    color:var(--faint); font-weight:700;
+  }
+
+  /* ---- section header ---- */
+  .s-head{display:flex; align-items:baseline; gap:1.4rem;
+    border-bottom:1px solid var(--line); padding-bottom:1.8vh; margin-bottom:4.2vh}
+  .s-head .num{font-size:clamp(1.05rem,1.5vw,1.45rem); font-weight:800;
+    color:var(--accent-deep); letter-spacing:.04em}
+  .s-head h2{font-size:clamp(2rem,4vw,3.6rem); font-weight:800; letter-spacing:.01em}
+  .s-head .sub{margin-left:auto; font-size:clamp(.95rem,1.4vw,1.3rem);
+    color:var(--sub); font-weight:800; letter-spacing:.06em}
+
+  .lead{font-size:clamp(1.55rem,2.7vw,2.45rem); line-height:1.48; max-width:56ch; color:var(--ink)}
+
+  ul.bul{list-style:none; margin-top:1.5vh}
+  ul.bul li{position:relative; padding-left:2rem; margin-bottom:2.8vh;
+    font-size:clamp(1.35rem,2.35vw,2.15rem); line-height:1.42; max-width:58ch}
+  ul.bul li::before{content:"—"; position:absolute; left:0; color:var(--faint); font-weight:700}
+  ul.bul li small{display:block; font-size:.72em; color:var(--sub); margin-top:.5em; font-weight:600}
+  .tbd{color:var(--faint); font-weight:600}
+
+  .role{display:inline-block; font-size:clamp(1.05rem,1.55vw,1.38rem); font-weight:700;
+    letter-spacing:.06em; color:var(--sub); border:1px solid var(--line);
+    padding:.5em 1.1em; border-radius:2px; margin-bottom:3.5vh}
+
+  .callout{margin-top:auto; border-top:3px solid var(--accent); padding-top:2.2vh;
+    font-size:clamp(1.35rem,2.2vw,1.95rem); font-weight:700; line-height:1.42; max-width:60ch}
+
+  /* ---- title ---- */
+  .title-slide{justify-content:space-between}
+  .t-top{display:flex; justify-content:space-between; align-items:baseline; gap:1rem}
+  .t-kick{font-size:clamp(.8rem,1.3vw,1.2rem); font-weight:800; letter-spacing:.2em; color:var(--accent-deep)}
+  .t-year{font-size:clamp(.8rem,1.3vw,1.2rem); font-weight:700; letter-spacing:.14em; color:var(--sub); white-space:nowrap}
+  .t-main h1{font-size:clamp(4rem,14vw,13rem); font-weight:900; line-height:.92; letter-spacing:-.02em}
+  .t-bar{width:clamp(8rem,17vw,17rem); height:.5rem; background:var(--accent); margin:3.5vh 0 0; border-radius:3px}
+  .t-foot{font-size:clamp(.8rem,1.1vw,1rem); color:var(--faint); font-weight:600; letter-spacing:.04em}
+
+  /* ---- contents / toc ---- */
+  .toc-k{font-size:clamp(.85rem,1.3vw,1.15rem); letter-spacing:.2em; color:var(--accent-deep); font-weight:800; margin-bottom:1vh}
+  .toc-h{font-size:clamp(2rem,4vw,3.4rem); font-weight:800; margin-bottom:4vh}
+  .toc{display:flex; flex-direction:column; flex:0 0 auto; justify-content:flex-start; width:100%; max-width:none; padding-top:5vh}
+  .toc li{list-style:none; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:clamp(1.5rem,2.4vw,3rem);
+    align-items:baseline; padding:3vh 0; border-bottom:1px solid var(--line)}
+  .toc li:last-child{border-bottom:none}
+  .toc .tn{font-size:clamp(1.1rem,1.7vw,1.5rem); font-weight:800; color:var(--accent-deep)}
+  .toc .tt{font-size:clamp(1.5rem,2.5vw,2.35rem); font-weight:800; white-space:nowrap}
+  .toc .tr{font-size:clamp(.85rem,1.2vw,1.1rem); color:var(--sub); font-weight:700; white-space:nowrap}
+
+  /* ---- info rows (overview) ---- */
+  .info{margin-top:4vh; width:100%; max-width:none}
+  .info .r{display:grid; grid-template-columns:8rem 1fr; gap:1.6rem;
+    padding:2.15vh 0; border-bottom:1px solid var(--line); align-items:baseline}
+  .info .r .k{font-size:clamp(.95rem,1.3vw,1.15rem); font-weight:800; color:var(--sub); letter-spacing:.04em}
+  .info .r .v{font-size:clamp(1.3rem,2.05vw,1.8rem); line-height:1.42}
+
+  /* ---- works list ---- */
+  .works{display:flex; flex-direction:column; flex:1; justify-content:center; max-width:86ch}
+  .works li{list-style:none; display:grid; grid-template-columns:auto 1fr auto; gap:2rem;
+    align-items:baseline; padding:3vh 0; border-bottom:1px solid var(--line)}
+  .works li:last-child{border-bottom:none}
+  .works .wi{font-size:clamp(1.3rem,2vw,1.7rem); font-weight:800; color:#c9c3b8}
+  .works .wn{font-size:clamp(1.7rem,3vw,2.65rem); font-weight:800}
+  .works .wd{font-size:clamp(1.05rem,1.55vw,1.38rem); color:var(--sub); margin-top:.55em; line-height:1.38; max-width:56ch}
+  .works .ws{font-size:clamp(1.1rem,1.65vw,1.48rem); font-weight:800; color:var(--faint); white-space:nowrap}
+  .works .ws.now{color:var(--accent-deep)}
+
+  /* ---- media placeholder ---- */
+  .media{flex:1; display:grid; gap:2.6vh; margin-top:1.5vh}
+  .media.two{grid-template-columns:1fr 1fr}
+  .mbox{border:2px dashed #d8d3c8; border-radius:8px; background:#fcfbf9;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.4vh; text-align:center; padding:3vh}
+  .mbox .ph{font-size:clamp(1.35rem,2.1vw,1.9rem); font-weight:800; color:#b3ada3; letter-spacing:.06em}
+  .mbox .cap{font-size:clamp(1.1rem,1.55vw,1.35rem); color:var(--sub); font-weight:700}
+  .mbox .tag{font-size:clamp(.8rem,1.1vw,1rem); color:var(--faint); letter-spacing:.06em}
+
+  /* ---- ringtoss concept ---- */
+  .concept-grid{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(16rem,.78fr);
+    gap:clamp(1.5rem,3vw,3rem); align-items:center; flex:1}
+  .concept-copy .lead{font-size:clamp(1.35rem,2.05vw,1.78rem); line-height:1.42; max-width:48ch}
+  .concept-copy ul.bul{margin-top:2vh}
+  .concept-copy ul.bul li{font-size:clamp(1.15rem,1.75vw,1.52rem); line-height:1.42; margin-bottom:1.8vh; max-width:52ch}
+  .concept-art{width:100%; max-width:33rem; justify-self:end}
+  .concept-art svg{display:block; width:100%; height:auto; max-height:47vh}
+  .concept-art .line{fill:none; stroke:var(--ink); stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+  .concept-art .thin{stroke-width:1.4}
+  .concept-art .soft{fill:#fcfbf9; stroke:var(--ink); stroke-width:2; stroke-linejoin:round}
+  .concept-art .accent{fill:none; stroke:var(--accent); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round}
+  .concept-art .dash{stroke-dasharray:7 8}
+  .concept-art text{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+    font-size:12px; font-weight:700; fill:var(--sub); letter-spacing:.04em}
+
+  /* ---- roadmap ---- */
+  .road{display:flex; flex-direction:column; flex:1; justify-content:center; max-width:82ch}
+  .road li{list-style:none; display:grid; grid-template-columns:auto 1fr; gap:2rem;
+    align-items:baseline; padding:3vh 0; border-bottom:1px solid var(--line)}
+  .road li:last-child{border-bottom:none}
+  .road .rn{font-size:clamp(1.8rem,3.1vw,2.7rem); font-weight:900; color:#d3cdc2; line-height:1}
+  .road li.now .rn{color:var(--accent)}
+  .road .rt{font-size:clamp(1.4rem,2.35vw,2rem); font-weight:700}
+  .road .rt small{display:block; font-size:.62em; color:var(--sub); font-weight:600; margin-top:.5em}
+
+  /* ---- summary ---- */
+  .sum-slide{justify-content:space-between}
+  .sum-k{font-size:clamp(.8rem,1.3vw,1.2rem); letter-spacing:.2em; color:var(--accent-deep); font-weight:800}
+  .sum-h{font-size:clamp(2.6rem,6vw,5.5rem); font-weight:900; line-height:1; letter-spacing:-.01em; margin-top:1.5vh}
+  .sum-bar{width:clamp(7rem,14vw,14rem); height:.45rem; background:var(--accent); margin:3vh 0}
+  .sum-list{display:flex; flex-direction:column; gap:2.2vh; max-width:76ch}
+  .sum-list .row{display:grid; grid-template-columns:auto 1fr; gap:1.6rem; align-items:baseline;
+    font-size:clamp(1.4rem,2.35vw,2rem)}
+  .sum-list .row .w{font-weight:800}
+  .sum-list .row .st{font-size:.78em; font-weight:800; color:var(--faint)}
+  .sum-list .row .st.now{color:var(--accent-deep)}
+  .sum-close{font-size:clamp(1.3rem,1.95vw,1.72rem); font-weight:700; color:var(--ink)}
+
+  /* ---- nav ---- */
+  .nav{position:fixed; right:2.2vw; bottom:3vh; display:flex; align-items:center; gap:.7rem; z-index:10}
+  .nav button{width:2.4rem; height:2.4rem; border:1px solid var(--line); background:#fff;
+    border-radius:50%; font-size:1.2rem; line-height:1; color:var(--ink); cursor:pointer}
+  .nav button:hover{border-color:var(--accent); color:var(--accent-deep)}
+  .nav button:disabled{opacity:.3; cursor:default}
+  .nav .ind{font-size:.85rem; color:var(--sub); font-weight:700; letter-spacing:.06em; min-width:3.6rem; text-align:center}
+
+  @media (max-width:900px){
+    .concept-grid{grid-template-columns:1fr; gap:2vh}
+    .concept-art{justify-self:start; max-width:min(34rem,100%)}
+    .concept-art svg{max-height:34vh}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- ===== タイトル ===== -->
+  <section class="slide title-slide active">
+    <div class="t-top">
+      <span class="t-kick">C4'S CREATION CHALLENGE 2026 ／ 電子工作班</span>
+      <span class="t-year">2026</span>
+    </div>
+    <div class="t-main">
+      <h1>中間報告</h1>
+      <div class="t-bar"></div>
+    </div>
+    <div class="t-foot">サークル全体への進捗共有</div>
+  </section>
+
+  <!-- ===== 目次 ===== -->
+  <section class="slide">
+    <div class="toc-k">CONTENTS</div>
+    <div class="toc-h">目次</div>
+    <ul class="toc">
+      <li><span class="tn">Ⅰ</span><span class="tt">概要と作る3作品</span><span class="tr">01 – 02</span></li>
+      <li><span class="tn">Ⅱ</span><span class="tt">担当別の進捗（ハード／ソフト／モデル）</span><span class="tr">03 – 05</span></li>
+      <li><span class="tn">Ⅲ</span><span class="tt">バーチャル輪投げと、これから</span><span class="tr">06 – 07</span></li>
+    </ul>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 01 概要＋出展先 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">01</span><h2>私たちがやっていること</h2></div>
+    <p class="lead">子供向けミニゲームを自作し、<span class="mark">水辺で乾杯！利根運河</span>に出展します。<span class="nb">ハード・ソフト・モデル</span>の3班で制作中です。</p>
+    <div class="info">
+      <div class="r"><span class="k">出展先</span><span class="v"><span class="nb">水辺で乾杯！利根運河</span>（<span class="nb">千葉県流山市</span>・<span class="nb">運河水辺公園</span>）</span></div>
+      <div class="r"><span class="k">時期</span><span class="v">2026年7月</span></div>
+      <div class="r"><span class="k">運営</span><span class="v">子供縁日の一角で、<span class="mark">1プレイ ¥100</span></span></div>
+      <div class="r"><span class="k">分担</span><span class="v"><span class="nb">ハード（操作部）／ソフト（ゲーム）／モデル（筐体）</span>＋<span class="nb">メンター</span></span></div>
+    </div>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 02 作る3作品 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">02</span><h2>作る3作品</h2></div>
+    <ul class="works">
+      <li>
+        <span class="wi">01</span>
+        <span><span class="wn">クレーンゲーム</span><span class="wd">自作レバーで<wbr>クレーンを操作。<wbr>景品が取れると<wbr>お菓子をプレゼント</span></span>
+        <span class="ws now">進行中</span>
+      </li>
+      <li>
+        <span class="wi">02</span>
+        <span><span class="wn">バーチャル輪投げ</span><span class="wd">輪っか型デバイスの<wbr>動きから<wbr>投げ方向を推定する<wbr>縁日ゲーム</span></span>
+        <span class="ws">試作中</span>
+      </li>
+      <li>
+        <span class="wi">03</span>
+        <span><span class="wn">レースゲーム</span><span class="wd">ハンドルコントローラーで<wbr>操作。<wbr>クレーン完成後に<wbr>着手予定</span></span>
+        <span class="ws">未着手</span>
+      </li>
+    </ul>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 03 ハード（コントローラー班）説明 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード</span></div>
+    <span class="role">担当：Arduino を使った<wbr>操作部の電子工作</span>
+    <ul class="bul">
+      <li>クレーン用の<wbr>自作コントローラが<wbr>動作（<span class="nb">Pro Micro</span>／ジョイスティック／7セグ／ボタン／LED）</li>
+      <li>ブレッドボード上で<wbr>配線し、<wbr>入力から<wbr>クレーン操作まで<wbr>一通り動く状態に</li>
+      <li class="tbd">工夫した点・<wbr>苦労した点<wbr> ※Discordの返信で差し替え</li>
+    </ul>
+    <div class="callout">自作コントローラで、<wbr>実際にクレーンを<wbr>動かせるところまで<wbr>到達</div>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 03 ハード 開発の様子 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード ／ 開発の様子</span></div>
+    <div class="media two">
+      <div class="mbox"><span class="ph">動 画</span><span class="cap">クレーン実機の<wbr>動作</span><span class="tag">※Discordの返信で差し替え</span></div>
+      <div class="mbox"><span class="ph">写 真</span><span class="cap">基板・<wbr>配線まわり</span><span class="tag">※Discordの返信で差し替え</span></div>
+    </div>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 04 ソフト（ソフトウェア・アプリ班）説明 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">04</span><h2>ソフトウェア・アプリ班</h2><span class="sub">ソフト</span></div>
+    <span class="role">担当：PC で動く<wbr>ゲーム本体と UI（<span class="nb">Three.js / Unity</span>）</span>
+    <ul class="bul">
+      <li>クレーンの<wbr>ゲーム画面を<wbr>制作<small class="tbd">具体的な内容<wbr> ※Discordの返信で差し替え</small></li>
+      <li class="tbd">工夫した点・<wbr>苦労した点<wbr> ※Discordの返信で差し替え</li>
+    </ul>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 04 ソフト 開発の様子 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">04</span><h2>ソフトウェア・アプリ班</h2><span class="sub">ソフト ／ 開発の様子</span></div>
+    <div class="media">
+      <div class="mbox"><span class="ph">画面キャプチャ</span><span class="cap">ゲーム画面</span><span class="tag">※Discordの返信で差し替え</span></div>
+    </div>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 05 モデル（フレームワーク班）説明 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">05</span><h2>フレームワーク班</h2><span class="sub">モデル</span></div>
+    <span class="role">担当：筐体・<span class="nb">3Dモデル</span>・<wbr>パーツのデザイン</span>
+    <ul class="bul">
+      <li>筐体や<wbr>パーツのデザインを<wbr>検討<small>手書きラフ／Blender／ホームセンターの木材／<span class="nb">3Dプリント</span></small></li>
+      <li class="tbd">進めたこと・<wbr>工夫した点<wbr> ※Discordの返信で差し替え</li>
+    </ul>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 05 モデル 開発の様子 ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">05</span><h2>フレームワーク班</h2><span class="sub">モデル ／ 開発の様子</span></div>
+    <div class="media two">
+      <div class="mbox"><span class="ph">写 真</span><span class="cap">ラフ・Blender・<span class="nb">3Dプリント</span></span><span class="tag">※Discordの返信で差し替え</span></div>
+      <div class="mbox"><span class="ph">写 真</span><span class="cap">木材・<wbr>試作パーツ</span><span class="tag">※Discordの返信で差し替え</span></div>
+    </div>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 06 バーチャル輪投げ 構想（メンター枠） ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">06</span><h2>バーチャル輪投げ</h2><span class="sub">メンター枠 ／ 構想</span></div>
+    <div class="concept-grid">
+      <div class="concept-copy">
+        <p class="lead">メンターが先行して<span class="mark">実現可能性をチェック</span>している段階です<wbr>（参加者の正式タスクではありません）。</p>
+        <ul class="bul">
+          <li>ノートPCの<wbr>画面に的を表示し、<wbr>輪っか型デバイスを<wbr>振って的を狙う<wbr>「投げ」ゲーム（実際に輪は飛ばさない）</li>
+          <li>デバイスの<wbr>ジャイロの振りを<span class="mark">機械学習</span>し、<wbr>どの的を狙ったかを<wbr>推定</li>
+          <li>まずは 3×3 の的で<wbr>「どこを狙ったか」を<wbr>当てるところから</li>
+        </ul>
+      </div>
+      <figure class="concept-art" aria-label="輪っか型デバイスで画面の的を狙う構想図">
+        <svg viewBox="0 0 620 420" role="img" aria-labelledby="ringtoss-title ringtoss-desc">
+          <title id="ringtoss-title">バーチャル輪投げ構想図</title>
+          <desc id="ringtoss-desc">手前の輪っか型デバイスからノートPC画面上の3×3の的へ、輪が放物線で飛ぶ様子を示す線画。</desc>
+
+          <g transform="translate(318 86)">
+            <rect class="soft" x="0" y="0" width="244" height="162" rx="7"/>
+            <line class="line thin" x1="0" y1="132" x2="244" y2="132"/>
+            <g transform="translate(42 25)">
+              <rect class="line thin" x="0" y="0" width="160" height="92" rx="3"/>
+              <line class="line thin" x1="53.3" y1="0" x2="53.3" y2="92"/>
+              <line class="line thin" x1="106.6" y1="0" x2="106.6" y2="92"/>
+              <line class="line thin" x1="0" y1="30.7" x2="160" y2="30.7"/>
+              <line class="line thin" x1="0" y1="61.4" x2="160" y2="61.4"/>
+              <circle class="line thin" cx="26.5" cy="15.4" r="5.5"/>
+              <circle class="line thin" cx="80" cy="46" r="5.5"/>
+              <circle class="line thin" cx="133.5" cy="76.7" r="5.5"/>
+            </g>
+            <path class="soft" d="M-28 178h300l-28-34H1z"/>
+            <line class="line thin" x1="38" y1="160" x2="208" y2="160"/>
+          </g>
+
+          <g transform="translate(74 280)">
+            <ellipse class="line" cx="58" cy="48" rx="58" ry="26"/>
+            <ellipse class="line thin" cx="58" cy="48" rx="34" ry="14"/>
+            <path class="line" d="M92 65l40 28"/>
+            <rect class="soft" x="120" y="82" width="74" height="34" rx="6"/>
+            <line class="line thin" x1="135" y1="99" x2="179" y2="99"/>
+          </g>
+
+          <path class="line dash" d="M192 297 C250 222, 307 170, 382 146"/>
+          <ellipse class="accent" cx="293" cy="196" rx="28" ry="13" transform="rotate(-22 293 196)"/>
+          <ellipse class="accent thin" cx="293" cy="196" rx="15" ry="6.5" transform="rotate(-22 293 196)"/>
+
+          <path class="line thin" d="M386 146l26-10"/>
+          <path class="line thin" d="M386 146l21 18"/>
+        </svg>
+      </figure>
+    </div>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== 07 これから ===== -->
+  <section class="slide">
+    <div class="s-head"><span class="num">07</span><h2>これから</h2></div>
+    <ul class="road">
+      <li class="now"><span class="rn">1</span><span class="rt">クレーンを<wbr>仕上げる<small>操作部・ゲーム・筐体を<wbr>統合し、<wbr>遊べる状態へ</small></span></li>
+      <li><span class="rn">2</span><span class="rt">輪投げの<wbr>実現性を<wbr>見極める<small>データを増やし、<wbr>デバイスで<wbr>投げ方向を<wbr>当てられるか判断</small></span></li>
+      <li><span class="rn">3</span><span class="rt">レースゲームに<wbr>着手<small>3作品目として<wbr>開発を開始</small></span></li>
+    </ul>
+    <div class="brand">電子工作班 中間報告</div>
+  </section>
+
+  <!-- ===== まとめ ===== -->
+  <section class="slide sum-slide">
+    <div>
+      <div class="sum-k">SUMMARY</div>
+      <div class="sum-h">まとめ</div>
+      <div class="sum-bar"></div>
+    </div>
+    <div class="sum-list">
+      <div class="row"><span class="w">クレーンゲーム</span><span class="st now">進行中 — コントローラが<wbr>動作</span></div>
+      <div class="row"><span class="w">バーチャル輪投げ</span><span class="st">試作中 — メンターが<wbr>実現性を検証</span></div>
+      <div class="row"><span class="w">レースゲーム</span><span class="st">未着手 — クレーン完成後に<wbr>着手</span></div>
+    </div>
+    <div class="sum-close">まずはクレーンを<wbr>仕上げ、<wbr>3作品の完成を<wbr>目指して<wbr>制作を進めます。</div>
+  </section>
+
+</div>
+
+<!-- ナビ -->
+<div class="nav">
+  <button id="prev" aria-label="前へ">‹</button>
+  <div class="ind"><span id="cur">1</span> / <span id="tot">13</span></div>
+  <button id="next" aria-label="次へ">›</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let idx = 0;
+  const cur = document.getElementById('cur');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  document.getElementById('tot').textContent = total;
+
+  function show(i){
+    idx = Math.max(0, Math.min(total - 1, i));
+    slides.forEach((s, n) => s.classList.toggle('active', n === idx));
+    cur.textContent = idx + 1;
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total - 1;
+  }
+  const next = () => show(idx + 1);
+  const prev = () => show(idx - 1);
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); prev(); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(total - 1);
+  });
+  show(0);
+</script>
+</body>
+</html>
