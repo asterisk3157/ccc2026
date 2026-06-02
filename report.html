@@ -45,7 +45,7 @@
   /* ---- motion (subtle, purposeful) ---- */
   @keyframes rise{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
   @keyframes barGrow{from{transform:scaleX(0)} to{transform:scaleX(1)}}
-  .slide.active > *{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
+  .slide.active > *:not(.fragment){animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
   .slide.active > *:nth-child(2){animation-delay:.07s}
   .slide.active > *:nth-child(3){animation-delay:.14s}
   .slide.active > *:nth-child(4){animation-delay:.21s}
@@ -188,6 +188,26 @@
   .sum-list .row .st.now{color:var(--accent-deep)}
   .sum-close{font-size:clamp(1.3rem,1.95vw,1.72rem); font-weight:700; color:var(--ink)}
 
+  /* ---- notice / staff recruit (opening) ---- */
+  .notice-slide{justify-content:center; align-items:flex-start}
+  .notice-k{font-size:clamp(1.6rem,3.6vw,3.1rem); font-weight:800; color:var(--accent-deep); letter-spacing:.06em}
+  .notice-main{opacity:0; visibility:hidden}
+  .notice-main.revealed{opacity:1; visibility:visible}
+  .notice-h{font-size:clamp(4rem,12vw,11rem); font-weight:900; line-height:1; letter-spacing:-.02em; margin-top:1.5vh}
+  .notice-h .accent{color:var(--accent)}
+  .notice-bar{width:clamp(8rem,17vw,17rem); height:.55rem; background:var(--accent); margin:3.2vh 0 2.6vh; border-radius:3px}
+  .notice-sub{font-size:clamp(1.35rem,2.3vw,2.05rem); font-weight:700; color:var(--ink); line-height:1.55; max-width:36ch}
+  .notice-hint{position:absolute; left:7.5vw; bottom:9vh; font-size:clamp(.9rem,1.3vw,1.15rem); font-weight:700; color:var(--faint); letter-spacing:.08em}
+  .notice-hint::before{content:"▽ "; color:var(--accent)}
+  .notice-main.revealed ~ .notice-hint{opacity:0; transition:opacity .3s}
+  .notice-main.revealed .notice-h{animation:popIn .65s cubic-bezier(.2,.8,.25,1) both}
+  .notice-main.revealed .notice-bar{transform-origin:left; animation:barGrow .55s .3s cubic-bezier(.2,.7,.3,1) both}
+  .notice-main.revealed .notice-sub{animation:rise .6s .45s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes popIn{from{opacity:0; transform:translateY(48px) scale(.9)} to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    .notice-main.revealed .notice-h,.notice-main.revealed .notice-bar,.notice-main.revealed .notice-sub{animation:none}
+  }
+
   /* ---- nav ---- */
   .nav{position:fixed; right:2.2vw; bottom:3vh; display:flex; align-items:center; gap:.7rem; z-index:10}
   .nav button{width:2.4rem; height:2.4rem; border:1px solid var(--line); background:#fff;
@@ -216,7 +236,17 @@
       <h1>中間報告</h1>
       <div class="t-bar"></div>
     </div>
-    <div class="t-foot">サークルのみんなへ 進捗シェア！</div>
+    <div class="t-foot">サークルのみんなへ 進捗を共有します</div>
+  </section>
+
+  <!-- ===== 大事なお知らせ → スタッフ募集 ===== -->
+  <section class="slide notice-slide">
+    <div class="notice-k">大事なお知らせ</div>
+    <div class="notice-main fragment">
+      <div class="notice-h">スタッフ<span class="accent">募集</span></div>
+      <div class="notice-bar"></div>
+      <p class="notice-sub"><span class="nb">「水辺で乾杯！利根運河」</span>を<wbr>一緒に盛り上げてくれる<wbr>スタッフを<wbr>募集しています<br>ぜひお力を<wbr>貸してください！</p>
+    </div>
   </section>
 
   <!-- ===== 目次 ===== -->
@@ -234,7 +264,7 @@
   <!-- ===== 01 概要＋出展先 ===== -->
   <section class="slide">
     <div class="s-head"><span class="num">01</span><h2>私たちがやっていること</h2></div>
-    <p class="lead">子供向けのミニゲームを自作して、<span class="mark">水辺で乾杯！利根運河</span>に出展するよ！ <span class="nb">ハード・ソフト・モデル</span>の3班で絶賛制作中！</p>
+    <p class="lead">子供向けのミニゲームを自作して、<span class="mark">水辺で乾杯！利根運河</span>に出展します <span class="nb">ハード・ソフト・モデル</span>の3班で制作しています</p>
     <div class="info">
       <div class="r"><span class="k">出展先</span><span class="v"><span class="nb">水辺で乾杯！利根運河</span>（<span class="nb">千葉県流山市</span>・<span class="nb">運河水辺公園</span>）</span></div>
       <div class="r"><span class="k">時期</span><span class="v">2026年7月</span></div>
@@ -250,7 +280,7 @@
     <ul class="works">
       <li>
         <span class="wi">01</span>
-        <span><span class="wn">クレーンゲーム</span><span class="wd">自作レバーで<wbr>クレーンを操作！<wbr>景品が取れたら<wbr>お菓子をプレゼント</span></span>
+        <span><span class="wn">クレーンゲーム</span><span class="wd">自作レバーで<wbr>クレーンを操作し、<wbr>景品が取れたら<wbr>お菓子をプレゼント</span></span>
         <span class="ws now">進行中</span>
       </li>
       <li>
@@ -260,7 +290,7 @@
       </li>
       <li>
         <span class="wi">03</span>
-        <span><span class="wn">レースゲーム</span><span class="wd">ハンドルコントローラーで<wbr>操作！<wbr>クレーンが<wbr>できたら<wbr>着手予定</span></span>
+        <span><span class="wn">レースゲーム</span><span class="wd">ハンドルコントローラーで<wbr>操作し、<wbr>クレーン完成後に<wbr>着手予定</span></span>
         <span class="ws">未着手</span>
       </li>
     </ul>
@@ -272,9 +302,9 @@
     <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード</span></div>
     <span class="role">担当：Arduino を使った<wbr>操作部の電子工作</span>
     <ul class="bul">
-      <li>各部品を<wbr>導線でつないで、<wbr>マイコンで<wbr>プログラミングして<wbr>操作できるように<wbr>してるよ！<wbr>いまはエラーを<wbr>減らすのを<wbr>頑張り中</li>
-      <li>先輩のコードで<wbr>勉強しつつ、<wbr>自分なりの考えで<wbr>コード書いてます</li>
-      <li>思いついた機能は、<wbr>できるだけ<wbr>実現しようと<wbr>頑張ってる！</li>
+      <li>各部品を<wbr>導線でつないで、<wbr>マイコンで<wbr>プログラミングして<wbr>操作できるように<wbr>しています<wbr> いまはエラーを<wbr>減らしているところです</li>
+      <li>先輩のコードで<wbr>勉強しながら、<wbr>自分なりの考えで<wbr>コードを書いています</li>
+      <li>思いついた機能は、<wbr>できるだけ<wbr>実現しようとしています</li>
     </ul>
     <div class="brand">電子工作班 中間報告</div>
   </section>
@@ -293,10 +323,10 @@
     <div class="s-head"><span class="num">04</span><h2>ソフトウェア・アプリ班</h2><span class="sub">ソフト</span></div>
     <span class="role">担当：PC で動く<wbr>ゲーム本体と UI（<span class="nb">Three.js / Unity</span>）</span>
     <ul class="bul">
-      <li>アームの爪が細くて<wbr>当たり判定が<wbr>小さい…！<wbr>爪のスケールを<wbr>いじったり、<wbr>当たり判定を<wbr>手張りで足して<wbr>無理やり大きくしたよ</li>
-      <li>アームの降下を<wbr>時間制御や<wbr>床との衝突で<wbr>やると、<wbr>床をすり抜ける<wbr>バグが多発…！<wbr>床との距離を測る<wbr>レーザーで<wbr>制御して解決！</li>
+      <li>アームの爪が細くて<wbr>当たり判定が<wbr>小さいので、<wbr>爪のスケールを<wbr>調整したり、<wbr>当たり判定を<wbr>手張りで足して<wbr>大きくしています</li>
+      <li>アームの降下を<wbr>時間制御や<wbr>床との衝突で行うと<wbr>床をすり抜ける<wbr>バグが多発したので、<wbr>床との距離を測る<wbr>レーザーで<wbr>制御して解決しました</li>
     </ul>
-    <div class="callout">いま：フレームワーク班と<wbr>協力して、<wbr>景品のサイズを<wbr>調整中！</div>
+    <div class="callout">いま：フレームワーク班と<wbr>協力して、<wbr>景品のサイズを<wbr>調整しています</div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
 
@@ -325,11 +355,11 @@
     <div class="s-head"><span class="num">06</span><h2>バーチャル輪投げ</h2><span class="sub">メンター枠 ／ 構想</span></div>
     <div class="concept-grid">
       <div class="concept-copy">
-        <p class="lead">メンターが先に<span class="mark">実現できるかチェック</span>してる段階だよ<wbr>（参加者の正式タスクじゃないやつ）</p>
+        <p class="lead">メンターが先行して<span class="mark">実現できるかをチェック</span>している段階です<wbr>（参加者の正式タスクではありません）</p>
         <ul class="bul">
-          <li>ノートPCの<wbr>画面に的を出して、<wbr>輪っか型デバイスを<wbr>振って狙う<wbr>「投げ」ゲーム<wbr>（実際に輪は飛ばさないよ）</li>
-          <li>デバイスの<wbr>ジャイロの振りを<span class="mark">機械学習</span>して、<wbr>どの的を狙ったか<wbr>当てる</li>
-          <li>まずは 3×3 の的で<wbr>「どこを狙ったか」を<wbr>当てるところから！</li>
+          <li>ノートPCの<wbr>画面に的を表示し、<wbr>輪っか型デバイスを<wbr>振って狙う<wbr>「投げ」ゲームです<wbr>（実際に輪は飛ばしません）</li>
+          <li>デバイスの<wbr>ジャイロの振りを<span class="mark">機械学習</span>して、<wbr>どの的を狙ったかを<wbr>推定します</li>
+          <li>まずは 3×3 の的で<wbr>「どこを狙ったか」を<wbr>当てるところから<wbr>始めます</li>
         </ul>
       </div>
       <figure class="concept-art" aria-label="輪っか型デバイスで画面の的を狙う構想図">
@@ -378,9 +408,9 @@
   <section class="slide">
     <div class="s-head"><span class="num">07</span><h2>これから</h2></div>
     <ul class="road">
-      <li class="now"><span class="rn">1</span><span class="rt">クレーンを<wbr>仕上げる<small>操作部・ゲーム・筐体を<wbr>合体させて、<wbr>遊べる状態へ！</small></span></li>
-      <li><span class="rn">2</span><span class="rt">輪投げが<wbr>実現できるか<wbr>見極める<small>データを増やして、<wbr>デバイスで<wbr>投げ方向を<wbr>当てられるか判断</small></span></li>
-      <li><span class="rn">3</span><span class="rt">レースゲームに<wbr>着手<small>3作品目として<wbr>スタート！</small></span></li>
+      <li class="now"><span class="rn">1</span><span class="rt">クレーンを<wbr>仕上げる<small>操作部・ゲーム・筐体を<wbr>統合して、<wbr>遊べる状態へ</small></span></li>
+      <li><span class="rn">2</span><span class="rt">輪投げの<wbr>実現性を<wbr>見極める<small>データを増やして、<wbr>デバイスで<wbr>投げ方向を<wbr>当てられるか判断</small></span></li>
+      <li><span class="rn">3</span><span class="rt">レースゲームに<wbr>着手<small>3作品目として<wbr>開発を開始</small></span></li>
     </ul>
     <div class="brand">電子工作班 中間報告</div>
   </section>
@@ -393,11 +423,11 @@
       <div class="sum-bar"></div>
     </div>
     <div class="sum-list">
-      <div class="row"><span class="w">クレーンゲーム</span><span class="st now">進行中 — コントローラが<wbr>動いてる！</span></div>
-      <div class="row"><span class="w">バーチャル輪投げ</span><span class="st">試作中 — メンターが<wbr>実現性を検証中</span></div>
-      <div class="row"><span class="w">レースゲーム</span><span class="st">未着手 — クレーンが<wbr>できたら着手</span></div>
+      <div class="row"><span class="w">クレーンゲーム</span><span class="st now">進行中 — コントローラが<wbr>動作</span></div>
+      <div class="row"><span class="w">バーチャル輪投げ</span><span class="st">試作中 — メンターが<wbr>実現性を検証</span></div>
+      <div class="row"><span class="w">レースゲーム</span><span class="st">未着手 — クレーン完成後に<wbr>着手</span></div>
     </div>
-    <div class="sum-close">まずはクレーンを<wbr>仕上げて、<wbr>3作品の完成を<wbr>目指して<wbr>進めていくよ！</div>
+    <div class="sum-close">まずはクレーンを<wbr>仕上げて、<wbr>3作品の完成を<wbr>目指して<wbr>進めていきます</div>
   </section>
 
 </div>
@@ -410,23 +440,35 @@
 </div>
 
 <script>
-  const slides = document.querySelectorAll('.slide');
+  const slides = [...document.querySelectorAll('.slide')];
   const total = slides.length;
-  let idx = 0;
+  let idx = 0, step = 0;
   const cur = document.getElementById('cur');
   const prevBtn = document.getElementById('prev');
   const nextBtn = document.getElementById('next');
   document.getElementById('tot').textContent = total;
 
-  function show(i){
-    idx = Math.max(0, Math.min(total - 1, i));
+  const fragsOf = (s) => [...s.querySelectorAll('.fragment')];
+
+  function render(){
     slides.forEach((s, n) => s.classList.toggle('active', n === idx));
+    const f = fragsOf(slides[idx]);
+    f.forEach((el, i) => el.classList.toggle('revealed', i < step));
     cur.textContent = idx + 1;
-    prevBtn.disabled = idx === 0;
-    nextBtn.disabled = idx === total - 1;
+    prevBtn.disabled = idx === 0 && step === 0;
+    nextBtn.disabled = idx === total - 1 && step >= f.length;
   }
-  const next = () => show(idx + 1);
-  const prev = () => show(idx - 1);
+  function next(){
+    const f = fragsOf(slides[idx]);
+    if (step < f.length){ step++; render(); return; }
+    if (idx < total - 1){ idx++; step = 0; render(); }
+  }
+  function prev(){
+    if (step > 0){ step--; render(); return; }
+    if (idx > 0){ idx--; step = fragsOf(slides[idx]).length; render(); }
+  }
+  function show(i){ idx = Math.max(0, Math.min(total - 1, i)); step = 0; render(); }
+
   prevBtn.addEventListener('click', prev);
   nextBtn.addEventListener('click', next);
   document.addEventListener('keydown', (e) => {
@@ -435,7 +477,7 @@
     if (e.key === 'Home') show(0);
     if (e.key === 'End') show(total - 1);
   });
-  show(0);
+  render();
 </script>
 </body>
 </html>
