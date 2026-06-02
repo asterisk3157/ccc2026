@@ -136,6 +136,17 @@
   .mbox .cap{font-size:clamp(1.1rem,1.55vw,1.35rem); color:var(--sub); font-weight:700}
   .mbox .tag{font-size:clamp(.8rem,1.1vw,1rem); color:var(--faint); letter-spacing:.06em}
 
+  /* ---- screenshot media ---- */
+  .media{grid-auto-rows:1fr}
+  .shot{border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#111; min-width:0; min-height:0; display:flex}
+  .shot img{width:100%; height:100%; object-fit:contain; display:block}
+
+  /* ---- live demo ---- */
+  .demo{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:2.6vh}
+  .demo-k{font-size:clamp(.85rem,1.3vw,1.2rem); letter-spacing:.25em; font-weight:800; color:var(--accent-deep)}
+  .demo-h{font-size:clamp(3rem,8vw,7rem); font-weight:900; line-height:1; letter-spacing:-.01em}
+  .demo-sub{font-size:clamp(1.2rem,2vw,1.7rem); color:var(--sub); font-weight:700; line-height:1.5; max-width:42ch; word-break:keep-all; overflow-wrap:break-word}
+
   /* ---- ringtoss concept ---- */
   .concept-grid{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(16rem,.78fr);
     gap:clamp(1.5rem,3vw,3rem); align-items:center; flex:1}
@@ -259,20 +270,20 @@
     <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード</span></div>
     <span class="role">担当：Arduino を使った<wbr>操作部の電子工作</span>
     <ul class="bul">
-      <li>クレーン用の<wbr>自作コントローラが<wbr>動作（<span class="nb">Pro Micro</span>／ジョイスティック／7セグ／ボタン／LED）</li>
-      <li>ブレッドボード上で<wbr>配線し、<wbr>入力から<wbr>クレーン操作まで<wbr>一通り動く状態に</li>
-      <li class="tbd">工夫した点・<wbr>苦労した点<wbr> ※Discordの返信で差し替え</li>
+      <li>各部品を<wbr>導線でつなぎ、<wbr>マイコンで<wbr>プログラミングして<wbr>各部品を操作できるように。<wbr>いまはエラーを<wbr>減らしている最中</li>
+      <li>先輩のコードで<wbr>勉強しながら、<wbr>自分なりの考えで<wbr>コードを書いている</li>
+      <li>思いつく機能を、<wbr>できるだけ<wbr>実現しようとしている</li>
     </ul>
-    <div class="callout">自作コントローラで、<wbr>実際にクレーンを<wbr>動かせるところまで<wbr>到達</div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
 
-  <!-- ===== 03 ハード 開発の様子 ===== -->
+  <!-- ===== 03 ハード 実演 ===== -->
   <section class="slide">
-    <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード ／ 開発の様子</span></div>
-    <div class="media two">
-      <div class="mbox"><span class="ph">動 画</span><span class="cap">クレーン実機の<wbr>動作</span><span class="tag">※Discordの返信で差し替え</span></div>
-      <div class="mbox"><span class="ph">写 真</span><span class="cap">基板・<wbr>配線まわり</span><span class="tag">※Discordの返信で差し替え</span></div>
+    <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード ／ 実演</span></div>
+    <div class="demo">
+      <div class="demo-k">LIVE DEMO</div>
+      <div class="demo-h">実演します</div>
+      <p class="demo-sub">コントローラーの実物を<wbr>持ってきています。<wbr>ここから先は、<wbr>実際に動かして<wbr>お見せします。</p>
     </div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
@@ -282,38 +293,29 @@
     <div class="s-head"><span class="num">04</span><h2>ソフトウェア・アプリ班</h2><span class="sub">ソフト</span></div>
     <span class="role">担当：PC で動く<wbr>ゲーム本体と UI（<span class="nb">Three.js / Unity</span>）</span>
     <ul class="bul">
-      <li>クレーンの<wbr>ゲーム画面を<wbr>制作<small class="tbd">具体的な内容<wbr> ※Discordの返信で差し替え</small></li>
-      <li class="tbd">工夫した点・<wbr>苦労した点<wbr> ※Discordの返信で差し替え</li>
+      <li>アームの爪が細く<wbr>当たり判定が<wbr>小さいため、<wbr>爪のスケール調整に加え、<wbr>当たり判定を<wbr>手張りで追加して<wbr>大きくした</li>
+      <li>アーム降下を<wbr>時間制御や<wbr>床との衝突で行うと<wbr>床をすり抜ける<wbr>バグが多発。<wbr>床との距離を測る<wbr>レーザーで制御して<wbr>解決した</li>
     </ul>
+    <div class="callout">いま：フレームワーク班と協力して、<wbr>景品のサイズ調整を<wbr>進めている</div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
 
   <!-- ===== 04 ソフト 開発の様子 ===== -->
   <section class="slide">
     <div class="s-head"><span class="num">04</span><h2>ソフトウェア・アプリ班</h2><span class="sub">ソフト ／ 開発の様子</span></div>
-    <div class="media">
-      <div class="mbox"><span class="ph">画面キャプチャ</span><span class="cap">ゲーム画面</span><span class="tag">※Discordの返信で差し替え</span></div>
+    <div class="media two">
+      <figure class="shot"><img src="assets/report/game1.png" alt="Unityのシーンビュー：クレーンアームの機構"></figure>
+      <figure class="shot"><img src="assets/report/game2.png" alt="Unityのシーンビュー：クレーンゲームの全体"></figure>
     </div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
 
-  <!-- ===== 05 モデル（フレームワーク班）説明 ===== -->
-  <section class="slide">
-    <div class="s-head"><span class="num">05</span><h2>フレームワーク班</h2><span class="sub">モデル</span></div>
-    <span class="role">担当：筐体・<span class="nb">3Dモデル</span>・<wbr>パーツのデザイン</span>
-    <ul class="bul">
-      <li>筐体や<wbr>パーツのデザインを<wbr>検討<small>手書きラフ／Blender／ホームセンターの木材／<span class="nb">3Dプリント</span></small></li>
-      <li class="tbd">進めたこと・<wbr>工夫した点<wbr> ※Discordの返信で差し替え</li>
-    </ul>
-    <div class="brand">電子工作班 中間報告</div>
-  </section>
-
-  <!-- ===== 05 モデル 開発の様子 ===== -->
+  <!-- ===== 05 モデル（フレームワーク班）開発の様子 ===== -->
   <section class="slide">
     <div class="s-head"><span class="num">05</span><h2>フレームワーク班</h2><span class="sub">モデル ／ 開発の様子</span></div>
     <div class="media two">
-      <div class="mbox"><span class="ph">写 真</span><span class="cap">ラフ・Blender・<span class="nb">3Dプリント</span></span><span class="tag">※Discordの返信で差し替え</span></div>
-      <div class="mbox"><span class="ph">写 真</span><span class="cap">木材・<wbr>試作パーツ</span><span class="tag">※Discordの返信で差し替え</span></div>
+      <figure class="shot"><img src="assets/report/model1.png" alt="Blenderで制作した台の3Dモデル"></figure>
+      <figure class="shot"><img src="assets/report/model2.png" alt="Blenderで制作したボタン部品の3Dモデル"></figure>
     </div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
