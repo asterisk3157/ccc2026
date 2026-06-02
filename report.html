@@ -55,6 +55,7 @@
   @media (prefers-reduced-motion:reduce){
     .slide.active > *{animation:none}
     .t-bar,.sum-bar{animation:none}
+    .demo-now .dot{animation:none}
   }
 
   /* ---- deck furniture ---- */
@@ -75,10 +76,11 @@
 
   .lead{font-size:clamp(1.55rem,2.7vw,2.45rem); line-height:1.48; max-width:56ch; color:var(--ink)}
 
-  ul.bul{list-style:none; margin-top:1.5vh}
-  ul.bul li{position:relative; padding-left:2rem; margin-bottom:2.8vh;
-    font-size:clamp(1.35rem,2.35vw,2.15rem); line-height:1.42; max-width:58ch}
-  ul.bul li::before{content:"—"; position:absolute; left:0; color:var(--faint); font-weight:700}
+  ul.bul{list-style:none; margin-top:2.5vh}
+  ul.bul li{border:1.5px solid var(--line); border-radius:6px; background:#fcfbf9;
+    padding:1.9vh 1.7vw; margin-bottom:1.8vh;
+    font-size:clamp(1.25rem,2.1vw,1.9rem); line-height:1.45; max-width:64ch}
+  ul.bul li::before{content:none}
   ul.bul li small{display:block; font-size:.72em; color:var(--sub); margin-top:.5em; font-weight:600}
   .tbd{color:var(--faint); font-weight:600}
 
@@ -143,9 +145,9 @@
 
   /* ---- live demo ---- */
   .demo{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:2.6vh}
-  .demo-k{font-size:clamp(.85rem,1.3vw,1.2rem); letter-spacing:.25em; font-weight:800; color:var(--accent-deep)}
-  .demo-h{font-size:clamp(3rem,8vw,7rem); font-weight:900; line-height:1; letter-spacing:-.01em}
-  .demo-sub{font-size:clamp(1.2rem,2vw,1.7rem); color:var(--sub); font-weight:700; line-height:1.5; max-width:42ch; word-break:keep-all; overflow-wrap:break-word}
+  .demo-now{display:flex; align-items:center; gap:.32em; font-size:clamp(4rem,12vw,10rem); font-weight:900; line-height:1; letter-spacing:.04em}
+  .demo-now .dot{width:.3em; height:.3em; border-radius:50%; background:var(--accent); animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1)} 50%{opacity:.32; transform:scale(.64)}}
 
   /* ---- ringtoss concept ---- */
   .concept-grid{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(16rem,.78fr);
@@ -214,7 +216,7 @@
       <h1>中間報告</h1>
       <div class="t-bar"></div>
     </div>
-    <div class="t-foot">サークル全体への進捗共有</div>
+    <div class="t-foot">サークルのみんなへ 進捗シェア！</div>
   </section>
 
   <!-- ===== 目次 ===== -->
@@ -232,7 +234,7 @@
   <!-- ===== 01 概要＋出展先 ===== -->
   <section class="slide">
     <div class="s-head"><span class="num">01</span><h2>私たちがやっていること</h2></div>
-    <p class="lead">子供向けミニゲームを自作し、<span class="mark">水辺で乾杯！利根運河</span>に出展します。<span class="nb">ハード・ソフト・モデル</span>の3班で制作中です。</p>
+    <p class="lead">子供向けのミニゲームを自作して、<span class="mark">水辺で乾杯！利根運河</span>に出展するよ！ <span class="nb">ハード・ソフト・モデル</span>の3班で絶賛制作中！</p>
     <div class="info">
       <div class="r"><span class="k">出展先</span><span class="v"><span class="nb">水辺で乾杯！利根運河</span>（<span class="nb">千葉県流山市</span>・<span class="nb">運河水辺公園</span>）</span></div>
       <div class="r"><span class="k">時期</span><span class="v">2026年7月</span></div>
@@ -248,7 +250,7 @@
     <ul class="works">
       <li>
         <span class="wi">01</span>
-        <span><span class="wn">クレーンゲーム</span><span class="wd">自作レバーで<wbr>クレーンを操作。<wbr>景品が取れると<wbr>お菓子をプレゼント</span></span>
+        <span><span class="wn">クレーンゲーム</span><span class="wd">自作レバーで<wbr>クレーンを操作！<wbr>景品が取れたら<wbr>お菓子をプレゼント</span></span>
         <span class="ws now">進行中</span>
       </li>
       <li>
@@ -258,7 +260,7 @@
       </li>
       <li>
         <span class="wi">03</span>
-        <span><span class="wn">レースゲーム</span><span class="wd">ハンドルコントローラーで<wbr>操作。<wbr>クレーン完成後に<wbr>着手予定</span></span>
+        <span><span class="wn">レースゲーム</span><span class="wd">ハンドルコントローラーで<wbr>操作！<wbr>クレーンが<wbr>できたら<wbr>着手予定</span></span>
         <span class="ws">未着手</span>
       </li>
     </ul>
@@ -270,9 +272,9 @@
     <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード</span></div>
     <span class="role">担当：Arduino を使った<wbr>操作部の電子工作</span>
     <ul class="bul">
-      <li>各部品を<wbr>導線でつなぎ、<wbr>マイコンで<wbr>プログラミングして<wbr>各部品を操作できるように。<wbr>いまはエラーを<wbr>減らしている最中</li>
-      <li>先輩のコードで<wbr>勉強しながら、<wbr>自分なりの考えで<wbr>コードを書いている</li>
-      <li>思いつく機能を、<wbr>できるだけ<wbr>実現しようとしている</li>
+      <li>各部品を<wbr>導線でつないで、<wbr>マイコンで<wbr>プログラミングして<wbr>操作できるように<wbr>してるよ！<wbr>いまはエラーを<wbr>減らすのを<wbr>頑張り中</li>
+      <li>先輩のコードで<wbr>勉強しつつ、<wbr>自分なりの考えで<wbr>コード書いてます</li>
+      <li>思いついた機能は、<wbr>できるだけ<wbr>実現しようと<wbr>頑張ってる！</li>
     </ul>
     <div class="brand">電子工作班 中間報告</div>
   </section>
@@ -281,9 +283,7 @@
   <section class="slide">
     <div class="s-head"><span class="num">03</span><h2>コントローラー班</h2><span class="sub">ハード ／ 実演</span></div>
     <div class="demo">
-      <div class="demo-k">LIVE DEMO</div>
-      <div class="demo-h">実演します</div>
-      <p class="demo-sub">コントローラーの実物を<wbr>持ってきています。<wbr>ここから先は、<wbr>実際に動かして<wbr>お見せします。</p>
+      <div class="demo-now"><span class="dot"></span>実演中</div>
     </div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
@@ -293,10 +293,10 @@
     <div class="s-head"><span class="num">04</span><h2>ソフトウェア・アプリ班</h2><span class="sub">ソフト</span></div>
     <span class="role">担当：PC で動く<wbr>ゲーム本体と UI（<span class="nb">Three.js / Unity</span>）</span>
     <ul class="bul">
-      <li>アームの爪が細く<wbr>当たり判定が<wbr>小さいため、<wbr>爪のスケール調整に加え、<wbr>当たり判定を<wbr>手張りで追加して<wbr>大きくした</li>
-      <li>アーム降下を<wbr>時間制御や<wbr>床との衝突で行うと<wbr>床をすり抜ける<wbr>バグが多発。<wbr>床との距離を測る<wbr>レーザーで制御して<wbr>解決した</li>
+      <li>アームの爪が細くて<wbr>当たり判定が<wbr>小さい…！<wbr>爪のスケールを<wbr>いじったり、<wbr>当たり判定を<wbr>手張りで足して<wbr>無理やり大きくしたよ</li>
+      <li>アームの降下を<wbr>時間制御や<wbr>床との衝突で<wbr>やると、<wbr>床をすり抜ける<wbr>バグが多発…！<wbr>床との距離を測る<wbr>レーザーで<wbr>制御して解決！</li>
     </ul>
-    <div class="callout">いま：フレームワーク班と協力して、<wbr>景品のサイズ調整を<wbr>進めている</div>
+    <div class="callout">いま：フレームワーク班と<wbr>協力して、<wbr>景品のサイズを<wbr>調整中！</div>
     <div class="brand">電子工作班 中間報告</div>
   </section>
 
@@ -325,17 +325,17 @@
     <div class="s-head"><span class="num">06</span><h2>バーチャル輪投げ</h2><span class="sub">メンター枠 ／ 構想</span></div>
     <div class="concept-grid">
       <div class="concept-copy">
-        <p class="lead">メンターが先行して<span class="mark">実現可能性をチェック</span>している段階です<wbr>（参加者の正式タスクではありません）。</p>
+        <p class="lead">メンターが先に<span class="mark">実現できるかチェック</span>してる段階だよ<wbr>（参加者の正式タスクじゃないやつ）</p>
         <ul class="bul">
-          <li>ノートPCの<wbr>画面に的を表示し、<wbr>輪っか型デバイスを<wbr>振って的を狙う<wbr>「投げ」ゲーム（実際に輪は飛ばさない）</li>
-          <li>デバイスの<wbr>ジャイロの振りを<span class="mark">機械学習</span>し、<wbr>どの的を狙ったかを<wbr>推定</li>
-          <li>まずは 3×3 の的で<wbr>「どこを狙ったか」を<wbr>当てるところから</li>
+          <li>ノートPCの<wbr>画面に的を出して、<wbr>輪っか型デバイスを<wbr>振って狙う<wbr>「投げ」ゲーム<wbr>（実際に輪は飛ばさないよ）</li>
+          <li>デバイスの<wbr>ジャイロの振りを<span class="mark">機械学習</span>して、<wbr>どの的を狙ったか<wbr>当てる</li>
+          <li>まずは 3×3 の的で<wbr>「どこを狙ったか」を<wbr>当てるところから！</li>
         </ul>
       </div>
       <figure class="concept-art" aria-label="輪っか型デバイスで画面の的を狙う構想図">
         <svg viewBox="0 0 620 420" role="img" aria-labelledby="ringtoss-title ringtoss-desc">
           <title id="ringtoss-title">バーチャル輪投げ構想図</title>
-          <desc id="ringtoss-desc">手前の輪っか型デバイスからノートPC画面上の3×3の的へ、輪が放物線で飛ぶ様子を示す線画。</desc>
+          <desc id="ringtoss-desc">手前の輪っか型デバイスからノートPC画面上の3×3の的へ、輪が放物線で飛ぶ様子を示す線画</desc>
 
           <g transform="translate(318 86)">
             <rect class="soft" x="0" y="0" width="244" height="162" rx="7"/>
@@ -378,9 +378,9 @@
   <section class="slide">
     <div class="s-head"><span class="num">07</span><h2>これから</h2></div>
     <ul class="road">
-      <li class="now"><span class="rn">1</span><span class="rt">クレーンを<wbr>仕上げる<small>操作部・ゲーム・筐体を<wbr>統合し、<wbr>遊べる状態へ</small></span></li>
-      <li><span class="rn">2</span><span class="rt">輪投げの<wbr>実現性を<wbr>見極める<small>データを増やし、<wbr>デバイスで<wbr>投げ方向を<wbr>当てられるか判断</small></span></li>
-      <li><span class="rn">3</span><span class="rt">レースゲームに<wbr>着手<small>3作品目として<wbr>開発を開始</small></span></li>
+      <li class="now"><span class="rn">1</span><span class="rt">クレーンを<wbr>仕上げる<small>操作部・ゲーム・筐体を<wbr>合体させて、<wbr>遊べる状態へ！</small></span></li>
+      <li><span class="rn">2</span><span class="rt">輪投げが<wbr>実現できるか<wbr>見極める<small>データを増やして、<wbr>デバイスで<wbr>投げ方向を<wbr>当てられるか判断</small></span></li>
+      <li><span class="rn">3</span><span class="rt">レースゲームに<wbr>着手<small>3作品目として<wbr>スタート！</small></span></li>
     </ul>
     <div class="brand">電子工作班 中間報告</div>
   </section>
@@ -393,11 +393,11 @@
       <div class="sum-bar"></div>
     </div>
     <div class="sum-list">
-      <div class="row"><span class="w">クレーンゲーム</span><span class="st now">進行中 — コントローラが<wbr>動作</span></div>
-      <div class="row"><span class="w">バーチャル輪投げ</span><span class="st">試作中 — メンターが<wbr>実現性を検証</span></div>
-      <div class="row"><span class="w">レースゲーム</span><span class="st">未着手 — クレーン完成後に<wbr>着手</span></div>
+      <div class="row"><span class="w">クレーンゲーム</span><span class="st now">進行中 — コントローラが<wbr>動いてる！</span></div>
+      <div class="row"><span class="w">バーチャル輪投げ</span><span class="st">試作中 — メンターが<wbr>実現性を検証中</span></div>
+      <div class="row"><span class="w">レースゲーム</span><span class="st">未着手 — クレーンが<wbr>できたら着手</span></div>
     </div>
-    <div class="sum-close">まずはクレーンを<wbr>仕上げ、<wbr>3作品の完成を<wbr>目指して<wbr>制作を進めます。</div>
+    <div class="sum-close">まずはクレーンを<wbr>仕上げて、<wbr>3作品の完成を<wbr>目指して<wbr>進めていくよ！</div>
   </section>
 
 </div>
